@@ -1,0 +1,168 @@
+
+
+/* ---------main structure styles--------- */
+
+body {
+	font-family: Arial, Helvetica, Geneva, sans-serif;
+	color: #093968;
+	position: relative;
+}
+
+.right {
+	float: right;
+	padding: 30px 0 15px 15px;
+}
+.row {
+	margin: 0;
+}
+.blue-box {
+	border:3px solid #093968;
+	padding: 0;
+	margin-bottom:30px;
+}
+
+.red-box {
+	border: 3px solid #B32513;
+	width: 30%;
+	margin-right: 1.5%;
+	margin-left: 1.5%;
+	margin-bottom: 15px;
+	float:left;
+}
+
+.box-content {
+	margin-top: 10px;
+}
+
+.thumb {
+	max-width: 100px;
+}
+
+.about {
+	margin-bottom: 15px;
+}
+
+footer {
+	background-color: #093968;
+	color: #fff;
+	font-size: .8em;
+	padding-top: 15px;	
+}
+
+/* ---------text styles--------- */
+h1 {
+	font-style: bold;
+	text-align: center;
+	font-size: 2.5em;
+}
+
+h2 {
+	background-color: #093968;
+	color: #fff;
+	margin: 0;
+	padding:5px 15px;
+	font-size: 1.75em;
+}
+
+h3 {
+	background-color: #B32513;
+	color: #fff;
+	margin: 0 0 10px 0;
+	padding:5px 15px;
+	font-size: 1.3em;
+}
+
+footer p a {
+	color: #fff;
+}
+footer p a:hover {
+	color: #F9DD50;
+}
+
+ul#viewFormats, ul#viewPublishers {
+	list-style: none;
+	padding-left: 10px;	
+	background-color: #DDDDDD;
+}
+
+a#formatDrop, a#publisherDrop {
+	display: block;
+	background-color: #093968;
+	color: #fff;
+	margin: 0 0 10px 0;
+	padding:5px 15px;
+	font-size: 1.75em;
+	width: 100%;
+}
+
+a#formatDrop:hover, a#formatDrop:active,
+a#publisherDrop:hover, a#publisherDrop:active {
+	text-decoration: none;
+}
+
+.bold {
+	font-weight: 700;
+}
+
+.pShipping {
+	text-align: center;
+	font-size: 1.2em;
+}
+
+/* ---------navigation styles--------- */
+
+#custom-menu.navbar-default {
+    font-size: 1em;
+    font-style: bold;
+    background-color: #093968;
+    border-width: 0px;
+    border-radius: 0px;
+}
+#custom-menu.navbar-default .navbar-nav>li>a {
+    color: #fff;
+    padding: 15px 30px;
+	font-weight: 500;
+}
+#custom-menu.navbar-default .navbar-nav>li.active>a {
+    background-color: #166ba5;
+}
+#custom-menu.navbar-default .navbar-nav>li>a:hover,
+#custom-menu.navbar-default .navbar-nav>li>a:focus {
+    color: #F9DD50;
+}
+#custom-menu.navbar-default .navbar-toggle:hover,
+#custom-menu.navbar-default .navbar-toggle:focus {
+    background-color: #166ba5;
+}
+
+/* ---------form styles--------- */
+.form-control, .btn {
+	border-radius: 0;
+}
+
+button {
+	color: #fff;
+	background-color: #093968;
+	border:3px solid #166BA5;
+	border-radius: 5px;
+	padding: 3px 10px;
+}
+
+button:hover {
+	background-color: #166BA5;
+	border:3px solid #093968;
+}
+
+input[type=checkbox] {
+	margin: 10px;
+	outline: 1px solid #B32513; 
+}
+
+/* ---------table styles--------- */
+.table>tbody>tr>th {
+	padding: 0;
+}
+
+.table>tbody>tr>td {
+	padding-left: 15px;
+}

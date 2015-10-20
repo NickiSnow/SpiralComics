@@ -54,7 +54,6 @@ body {
 	margin: 20px auto;
 }
 
-
 footer {
 	background-color: #093968;
 	color: #fff;
@@ -121,6 +120,9 @@ a#publisherDrop:hover, a#publisherDrop:active {
 	text-align: center;
 	font-size: 1.2em;
 }
+.red {
+	color: #B32513;
+}
 
 /* ---------navigation styles--------- */
 
@@ -153,12 +155,33 @@ a#publisherDrop:hover, a#publisherDrop:active {
 	border-radius: 0;
 }
 
-button {
+.form-control {
+	background-color: #fff;
+	border: 2px solid #093968;
+	margin-bottom: 5px;
+}
+
+select#state{
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    background-position: 97.5% 50%;
+    background-repeat: no-repeat;
+    background-image: url(../images/select_icon.gif);
+    padding: .5em;
+}
+
+button, .button {
 	color: #fff;
 	background-color: #093968;
 	border:3px solid #166BA5;
 	border-radius: 5px;
-	padding: 3px 10px;
+	padding: 3px 15px;
+}
+button:hover, a.button:hover {
+	color: #fff;
+	background-color: #166BA5;
+	border:3px solid #093968;
+	text-decoration: none;
 }
 
 button.secondary {
@@ -168,11 +191,12 @@ button.secondary {
 	border-radius: 5px;
 	padding: 3px 10px;
 }
-
-button:hover {
-	background-color: #166BA5;
-	border:3px solid #093968;
+button.secondary:hover {
+	color: #fff;
+	background-color: #093968;
+	border:3px solid #FFFACD;
 }
+
 
 input[type=checkbox] {
 	margin: 10px;

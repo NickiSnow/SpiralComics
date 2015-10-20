@@ -83,50 +83,72 @@
     </header>
     <div class=" row grey-box">
         <a href="shop.html"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Continue Shopping</a>
-        <h1>Your Shopping Cart</h1>
-        <table id="tCart" cellpadding="0" cellspacing="0">
-            <tr>
-                <th>Qty</th>
-                <th>Item Description</th>
-                <th class="text-right">Item Price</th>
-                <th class="text-right">Sub-Total</th>
-                <th class="text-center">Remove</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Comic book title # -- Condition</td>
-                 
-                <td class="text-right">&#36;4.99</td>
-                <td class="text-right">&#36;4.99</td>
-                <td class="text-center"><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Comic book title # -- Condition</td>
-                <td class="text-right">&#36;3.99</td>
-                <td class="text-right">&#36;3.99</td>
-                <td class="text-center"><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td class="text-right"><strong>Shipping<strong></td>
-                <td class="text-right">&#36;5.50</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td class="text-right"><strong>Total</strong></td>
-                <td class="text-right">&#36;14.48</td>
-                <td></td>
-            </tr>
-        </table>
-        <div class="checkoutDiv">
-            <button class="secondary">Empty Cart</button>
-            <a class="pull-right button" href="address_form.html">Checkout</a>
-        </div>
-    </div>    
+        <h1>Checkout</h1>
+			<div class="col-md-7 checkout">
+		      <h3> Verify Your Order</h3>
+		      <table id="tCheckout" cellpadding="0" cellspacing="0">
+		         <tr>
+	              <th>Qty</th>
+	              <th>Item Description</th>
+	              <th class="text-right">Item Price</th>
+	              <th class="text-right">Sub-Total</th>
+		         </tr>
+		         <tr>
+                	<td>1</td>
+                	<td>Comic book title # -- Condition</td>
+                	<td class="text-right">&#36;4.99</td>
+                	<td class="text-right">&#36;4.99</td>
+	            </tr>
+		         <tr>
+                	<td>1</td>
+                	<td>Comic book title # -- Condition</td>
+                	<td class="text-right">&#36;3.99</td>
+                	<td class="text-right">&#36;3.99</td>
+	            </tr>	            
+		         <tr>
+		              <td></td>
+		              <td></td>
+		              <td class="text-right"><strong>Shipping</strong></td>
+		              <td class="text-right">&#36;5.50</td>
+		          </tr>
+		          <tr>
+		            <td></td>
+		            <td></td>
+		            <td class="text-right"><strong>Total</strong></td>
+		            <td class="text-right">&#36;14.98</td>
+		          </tr>
+		      </table>
+		   </div>
+		   <div class="col-md-4 checkout">
+		      <h3>Enter Payment Information</h3>
+		      <p>Mastercard, Visa, American Express Accepted</p>
+		      <form action="" method="POST" id="payment-form" class="form-inline">
+		        	<span class="payment-errors"></span>
+		        	<div class="form-group">
+		          	<label for="number">
+		            	<span>Card Number</span>
+		            	<input type="text" size="20" name="number" data-stripe="number" class="card-number form-control"/>
+		          	</label>
+		        	</div>
+		        	<div class="form-group">
+		          	<label>
+		            	<span>CVC</span>
+		            	<input type="text" size="4" data-stripe="cvc" class="card-cvc form-control"/>
+		          	</label>
+		          	<a href="#">&nbsp;&nbsp; <span class="glyphicon glyphicon-question-sign"></span> What is CVC?</a>
+		        	</div>
+		        	<div class="form-group">
+		          	<label>
+		            	<span>Expiration (MM/YYYY)</span>
+		            	<input type="text" size="2" data-stripe="exp-month" class="card-expiry-month form-control"/>
+		          	</label>
+		          	<span> / </span>
+		          	<input type="text" size="4" data-stripe="exp-year" class="card-expiry-year form-control"/>
+		        	</div>
+		        	<a class="button" href="thanks.html">Submit Payment</a>
+		      </form>
+		   </div>
+    </div><!--End Row 1-->    
     <footer class="row">
       <p class="col-lg-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>
       <p class="col-lg-2"><span class="bold">Site Links</span><br/>

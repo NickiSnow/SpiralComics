@@ -37,6 +37,12 @@ body {
 	margin-bottom: 20px;
 }
 
+.checkout {
+	border: 2px solid #093968;
+	padding: 0 15px 15px 15px;
+	margin: 10px;
+}
+
 .box-content {
 	margin-top: 10px;
 }
@@ -52,6 +58,11 @@ body {
 #tCart, .checkoutDiv {
 	width: 85%;
 	margin: 20px auto;
+}
+
+#tCheckout {
+	width: 100%;
+	margin-bottom: 30px;
 }
 
 footer {

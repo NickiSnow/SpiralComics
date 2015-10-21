@@ -116,7 +116,7 @@
             <th><h2>&nbsp;&nbsp;&nbsp;&nbsp;</h2></th>
           </tr>
           <tr>
-            <td><img class="image-responsive thumb" src="images/all_new_xmen_40.jpg" alt="Comic Book Cover"></td>
+            <td><a data-toggle="modal" data-target="#comicModal"><img class="image-responsive thumb" src="images/all_new_xmen_40.jpg" alt="Comic Book Cover"></a></td>
             <td>ALL NEW X-MEN</td>
             <td>#40</td>
             <td>NM/Unread</td>
@@ -130,7 +130,7 @@
             <td><button>Add To Cart</button></td>
           </tr>
           <tr>
-            <td><img class="image-responsive thumb" src="images/amazing_spiderman_v4_17.jpg" alt="Comic Book Cover"></td>
+            <td><a data-toggle="modal" data-target="#comicModal"><img class="image-responsive thumb" src="images/amazing_spiderman_v4_17.jpg" alt="Comic Book Cover"></a></td>
             <td>AMAZING SPIDER-MAN</td>
             <td>#17</td>
             <td>NM/Unread</td>
@@ -144,7 +144,7 @@
             <td><button>Add To Cart</button></td>
           </tr>
           <tr>
-            <td><img class="image-responsive thumb" src="images/amazing_spiderman_v4_17.1.jpg" alt="Comic Book Cover"></td>
+            <td><a data-toggle="modal" data-target="#comicModal"><img class="image-responsive thumb" src="images/amazing_spiderman_v4_17.1.jpg" alt="Comic Book Cover"></a></td>
             <td>AMAZING SPIDER-MAN</td>
             <td>#17.1</td>
             <td>NM/Unread</td>
@@ -158,7 +158,7 @@
             <td><button>Add To Cart</button></td>
           </tr>
           <tr>
-            <td><img class="image-responsive thumb" src="images/amazing_x-men_2013_19.jpg" alt="Comic Book Cover"></td>
+            <td><a data-toggle="modal" data-target="#comicModal"><img class="image-responsive thumb" src="images/amazing_x-men_2013_19.jpg" alt="Comic Book Cover"></a></td>
             <td>AMAZING X-MEN</td>
             <td>#19</td>
             <td>NM/Unread</td>
@@ -172,7 +172,7 @@
             <td><button>Add To Cart</button></td>
           </tr>
           <tr>
-            <td><img class="image-responsive thumb" src="images/big_thunder_mountain_railroad_2015_02.jpg" alt="Comic Book Cover"></td>
+            <td><a data-toggle="modal" data-target="#comicModal"><img class="image-responsive thumb" src="images/big_thunder_mountain_railroad_2015_02.jpg" alt="Comic Book Cover"></a></td>
             <td>BIG THUNDER MOUNTAIN RAILROAD</td>
             <td>#2</td>
             <td>NM/Unread</td>
@@ -186,7 +186,7 @@
             <td><button>Add To Cart</button></td>
           </tr>
           <tr>
-            <td><img class="image-responsive thumb" src="images/darth_vader_2015_04.jpg" alt="Comic Book Cover"></td>
+            <td><a data-toggle="modal" data-target="#comicModal"><img class="image-responsive thumb" src="images/darth_vader_2015_04.jpg" alt="Comic Book Cover"></a></td>
             <td>DARTH VADER</td>
             <td>#4</td>
             <td>NM/Unread</td>
@@ -200,7 +200,7 @@
             <td><button>Add To Cart</button></td>
           </tr>
           <tr>
-            <td><img class="image-responsive thumb" src="images/ember_2015_0_sultry.jpg" alt="Comic Book Cover"></td>
+            <td><a data-toggle="modal" data-target="#comicModal"><img class="image-responsive thumb" src="images/ember_2015_0_sultry.jpg" alt="Comic Book Cover"></a></td>
             <td>EMBER</td>
             <td>#0</td>
             <td>NM/Unread</td>
@@ -215,6 +215,28 @@
           </tr>
         </table>
       </div>
+      <!-- comicModal -->
+      <div class="modal modal-wide fade" id="comicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h1 class="modal-title" id="title">ALL NEW X-MEN #40</h1>
+              </div><!-- /.modal-header -->
+              <div class="modal-body">
+                <div class="pull-left"><img class="img-responsive" id="modalImage" src="images/all_new_xmen_40.jpg"></div>
+                <h3>Creators</h3>
+                <p id="creators">Written by Brian Michael Bendis. Art by Mahmud Asrar.</p>
+                <h3>Description</h3>
+                <p id="description">Who are the Utopians? And what secret do they hold that pertains to the future of mutantkind? The All-New X-Men may regret finding out!</p>
+                <h3>Condition</h3>
+                <p id="condition">NM/Unread</p>
+                <h3>Price $3.99</h3>
+                <button class="pull-right">Add To Cart</button>
+              </div><!-- /.modal-body -->
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
     </div><!-- End Row 2 -->
     <footer class="row">
       <p class="col-lg-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>

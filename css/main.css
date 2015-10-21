@@ -65,6 +65,16 @@ body {
 	margin: 0 auto;
 }
 
+.modal.modal-wide .modal-dialog {
+  width: 66%;
+}
+.modal-body {
+	padding-right: 50px;
+}
+.modal-wide .modal-body {
+  overflow-y: auto;
+}
+
 footer {
 	background-color: #093968;
 	color: #fff;
@@ -74,6 +84,10 @@ footer {
 /* ---------image styles--------- */
 .thumb {
 	max-width: 100px;
+}
+
+img#modalImage {
+	max-width: 350px;
 }
 
 .middle {
@@ -179,15 +193,14 @@ a#publisherDrop:hover, a#publisherDrop:active {
 	width: 200px;
 	margin: 0;
 }
-select#state{
+select#state, select#sortBy, select#filterBy {
 	-webkit-appearance: none;
     -moz-appearance: none;
     background-position: 97.5% 50%;
     background-repeat: no-repeat;
     background-image: url(../images/select_icon.gif);
-    padding: .5em;
+    padding: 0 .5em;
 }
-
 button, .button {
 	color: #fff;
 	background-color: #093968;
@@ -201,7 +214,6 @@ button:hover, a.button:hover {
 	border:3px solid #093968;
 	text-decoration: none;
 }
-
 button.secondary {
 	color: #093968;
 	background-color: #FFFACD;
@@ -214,12 +226,15 @@ button.secondary:hover {
 	background-color: #093968;
 	border:3px solid #FFFACD;
 }
-
+button.close:hover {
+	color: #166BA5;
+	background-color: #fff;
+	border: none;
+}
 .search {
 	height: 34px;
 	width: 300px;
 }
-
 .searchBtn {
 	color: #fff;
 	background-color: #093968;
@@ -232,7 +247,6 @@ button.secondary:hover {
 	background-color: #093968;
 	border: none;
 }
-
 input[type=checkbox] {
 	margin: 10px;
 	outline: 1px solid #B32513; 

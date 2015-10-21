@@ -19,7 +19,9 @@ body {
 	padding: 0;
 	margin-bottom:30px;
 }
-
+.blue-box>a:hover {
+	text-decoration: none;
+}
 .red-box {
 	border: 3px solid #B32513;
 	width: 30%;
@@ -29,32 +31,26 @@ body {
 	margin-bottom: 15px;
 	float:left;
 }
-
 .grey-box {
 	background-color: #DDDDDD;
 	padding: 10px 15px 15px 15px;
 	margin-bottom: 20px;
 }
-
 .checkout {
 	border: 2px solid #093968;
 	padding: 0 15px 15px 15px;
 	margin: 10px;
 }
-
 .box-content {
 	margin-top: 10px;
 }
-
 .about {
 	margin-bottom: 15px;
 }
-
 .centerThx {
 	width: 60%;
 	margin: 0 auto;
 }
-
 .modal.modal-wide .modal-dialog {
   width: 66%;
 }
@@ -88,7 +84,6 @@ h1 {
 	text-align: center;
 	font-size: 2.5em;
 }
-
 h2 {
 	background-color: #093968;
 	color: #fff;
@@ -96,7 +91,6 @@ h2 {
 	padding:5px 15px;
 	font-size: 1.75em;
 }
-
 div.red-box>h3 {
 	background-color: #B32513;
 	color: #fff;
@@ -104,7 +98,6 @@ div.red-box>h3 {
 	padding:5px 15px;
 	font-size: 1.3em;
 }
-
 footer p a {
 	color: #fff;
 }
@@ -127,22 +120,22 @@ a#formatDrop, a#publisherDrop {
 	font-size: 1.75em;
 	width: 100%;
 }
-
 a#formatDrop:hover, a#formatDrop:active,
 a#publisherDrop:hover, a#publisherDrop:active {
 	text-decoration: none;
 }
-
 .bold {
 	font-weight: 700;
 }
-
 .pShipping {
 	text-align: center;
 	font-size: 1.2em;
 }
 .red {
 	color: #B32513;
+}
+.breadcrumb {
+	background-color: #fff;
 }
 
 /* ---------navigation styles--------- */

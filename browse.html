@@ -52,8 +52,10 @@
 <!-- Begin Content Container -->
   <div class="container">
     <header>
-      <img src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
-      <div class="right"><a href="cart.html">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (2)</a> | Hi, Username!</div>
+      <div class="row">
+        <img src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
+        <div class="right pull-right"><a href="cart.html">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (2)</a> | Hi, Username!</div>
+      </div>
       <div id="custom-menu" class="navbar navbar-default " role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -92,26 +94,26 @@
             Publisher (20)
           </a>
           <ul class="collapse" id="viewPublishers" aria-labelledby="publisherDrop">
-            <li><input type="checkbox" name="publisher1" value="Arcana Studios">Arcana Studios</li>
-            <li><input type="checkbox" name="publisher2" value="Archie Publications">Archie Publications</li>
-            <li><input type="checkbox" name="publisher3" value="Boom Studios">Boom Studios</li>
-            <li><input type="checkbox" name="publisher4" value="CrossGen Comics">CrossGen Comics</li>
-            <li><input type="checkbox" name="publisher5" value="Dark Horse">Dark Horse</li>
-            <li><input type="checkbox" name="publisher6" value="DC Comics">DC Comics</li>
-            <li><input type="checkbox" name="publisher7" value="DC/Vertigo">DC/Vertigo</li>
-            <li><input type="checkbox" name="publisher8" value="DC/Wildstorm">DC/Wildstorm</li>
-            <li><input type="checkbox" name="publisher9" value="Dell">Dell</li>
-            <li><input type="checkbox" name="publisher10" value="Devil's Due">Devil's Due</li>
-            <li><input type="checkbox" name="publisher11" value="Dynamite Entertainment">Dynamite Entertainment</li>
-            <li><input type="checkbox" name="publisher12" value="Gold Key">Gold Key</li>
-            <li><input type="checkbox" name="publisher13" value="IDW Publishing">IDW Publishing</li>
-            <li><input type="checkbox" name="publisher14" value="Image">Image</li>
-            <li><input type="checkbox" name="publisher15" value="Marvel">Marvel</li>
-            <li><input type="checkbox" name="publisher16" value="Oni Press">Oni Press</li>
-            <li><input type="checkbox" name="publisher17" value="Top Cow">Top Cow</li>
-            <li><input type="checkbox" name="publisher18" value="Valiant">Valiant</li>
-            <li><input type="checkbox" name="publisher19" value="Walt Disney Productions">Walt Disney Productions</li>
-            <li><input type="checkbox" name="publisher20" value="Whitman">Whitman</li>
+            <li><input type="checkbox" id="publisher1" name="publisher1" value="Arcana Studios"><label for="publisher1"><span></span></label>Arcana Studios</li>
+            <li><input type="checkbox" id="publisher2" name="publisher2" value="Archie Publications"><label for="publisher2"><span></span></label>Archie Publications</li>
+            <li><input type="checkbox" id="publisher3" name="publisher3" value="Boom Studios"><label for="publisher3"><span></span></label>Boom Studios</li>
+            <li><input type="checkbox" id="publisher4" name="publisher4" value="CrossGen Comics"><label for="publisher4"><span></span></label>CrossGen Comics</li>
+            <li><input type="checkbox" id="publisher5" name="publisher5" value="Dark Horse"><label for="publisher5"><span></span></label>Dark Horse</li>
+            <li><input type="checkbox" id="publisher6" name="publisher6" value="DC Comics"><label for="publisher6"><span></span></label>DC Comics</li>
+            <li><input type="checkbox" id="publisher7" name="publisher7" value="DC/Vertigo"><label for="publisher7"><span></span></label>DC/Vertigo</li>
+            <li><input type="checkbox" id="publisher8" name="publisher8" value="DC/Wildstorm"><label for="publisher8"><span></span></label>DC/Wildstorm</li>
+            <li><input type="checkbox" id="publisher9" name="publisher9" value="Dell"><label for="publisher9"><span></span></label>Dell</li>
+            <li><input type="checkbox" id="publisher10" name="publisher10" value="Devil's Due"><label for="publisher10"><span></span></label>Devil's Due</li>
+            <li><input type="checkbox" id="publisher11" name="publisher11" value="Dynamite Entertainment"><label for="publisher11"><span></span></label>Dynamite Entertainment</li>
+            <li><input type="checkbox" id="publisher12" name="publisher12" value="Gold Key"><label for="publisher12"><span></span></label>Gold Key</li>
+            <li><input type="checkbox" id="publisher13" name="publisher13" value="IDW Publishing"><label for="publisher13"><span></span></label>IDW Publishing</li>
+            <li><input type="checkbox" id="publisher14" name="publisher14" value="Image"><label for="publisher14"><span></span></label>Image</li>
+            <li><input type="checkbox" id="publisher15" name="publisher15" value="Marvel"><label for="publisher15"><span></span></label>Marvel</li>
+            <li><input type="checkbox" id="publisher16" name="publisher16" value="Oni Press"><label for="publisher16"><span></span></label>Oni Press</li>
+            <li><input type="checkbox" id="publisher17" name="publisher17" value="Top Cow"><label for="publisher17"><span></span></label>Top Cow</li>
+            <li><input type="checkbox" id="publisher18" name="publisher18" value="Valiant"><label for="publisher18"><span></span></label>Valiant</li>
+            <li><input type="checkbox" id="publisher19" name="publisher19" value="Walt Disney Productions"><label for="publisher19"><span></span></label>Walt Disney Productions</li>
+            <li><input type="checkbox" id="publisher20" name="publisher20" value="Whitman"><label for="publisher20"><span></span></label>Whitman</li>
           </ul>
         </div>
         <div class="dropdown">
@@ -120,42 +122,42 @@
             Format (3)
           </a>
           <ul class="collapse" id="viewFormats" aria-labelledby="formatDrop">
-            <li><input type="checkbox" name="cgc" value="cgc">CGC Graded Comics</li>
-            <li><input type="checkbox" name="comics" value="comics">Comic Books</li>
-            <li><input type="checkbox" name="trades" value="trades">Trade Paperbacks</li>
+            <li><input type="checkbox" id="cgc" name="cgc" value="cgc"><label for="cgc"><span></span></label>CGC Graded Comics</li>
+            <li><input type="checkbox" id="comics" name="comics" value="comics"><label for="comics"><span></span></label>Comic Books</li>
+            <li><input type="checkbox" id="trades" name="trades" value="trades"><label for="trades"><span></span></label>Trade Paperbacks</li>
           </ul>
         </div>
       </div>
       <div class="col-lg-9">
-        <p><a href="#">52</a><br/>
-          <a href="#">52 Aftermath: The Four Horsemen</a><br/>
-          <a href="#">Action Comics</a><br/>
-          <a href="#">Adventure Comics</a><br/>
-          <a href="#">Adventures of Superman</a><br/>
-          <a href="#">All-New X-Factor</a><br/>
-          <a href="#">All-New X-Men</a><br/>
-          <a href="#">Amazing Fantasy</a><br/>
-          <a href="#">Amazing Spider-man, The</a><br/>
-          <a href="#">Amazing X-men</a><br/>
-          <a href="#">Antman</a><br/>
-          <a href="#">Avengers, The</a><br/>
-          <a href="#">Buffy the Vampire Slayer</a><br/>
-          <a href="#">Captain America</a><br/>
-          <a href="#">Conan the Cimmerian</a><br/>
-          <a href="#">Daredevil</a><br/>
-          <a href="#">Dark Reign:The List-The Avengers</a><br/>
-          <a href="#">Defenders Volume 1, The</a><br/>
-          <a href="#">Hawkeye</a><br/>
-          <a href="#">Hulk, The</a><br/>
-          <a href="#">Invincible Iron Man, The</a><br/>
-          <a href="#">Iron Man</a><br/>
-          <a href="#">Marvel Age</a><br/>
-          <a href="#">Marvel Comics Presents</a><br/>
-          <a href="#">S.H.I.E.L.D.</a><br/>
-          <a href="#">Spider-man</a><br/>
-          <a href="#">Star Wars (1977)</a><br/>
-          <a href="#">Star Wars: Boba Fett – Agent of Doom</a><br/>
-          <a href="#">Star Wars: Dark Times</a><br/>
+        <p><a href="title.html">52</a><br/>
+          <a href="title.html">52 Aftermath: The Four Horsemen</a><br/>
+          <a href="title.html">Action Comics</a><br/>
+          <a href="title.html">Adventure Comics</a><br/>
+          <a href="title.html">Adventures of Superman</a><br/>
+          <a href="title.html">All-New X-Factor</a><br/>
+          <a href="title.html">All-New X-Men</a><br/>
+          <a href="title.html">Amazing Fantasy</a><br/>
+          <a href="title.html">Amazing Spider-man, The</a><br/>
+          <a href="title.html">Amazing X-men</a><br/>
+          <a href="title.html">Antman</a><br/>
+          <a href="title.html">Avengers, The</a><br/>
+          <a href="title.html">Buffy the Vampire Slayer</a><br/>
+          <a href="title.html">Captain America</a><br/>
+          <a href="title.html">Conan the Cimmerian</a><br/>
+          <a href="title.html">Daredevil</a><br/>
+          <a href="title.html">Dark Reign:The List-The Avengers</a><br/>
+          <a href="title.html">Defenders Volume 1, The</a><br/>
+          <a href="title.html">Hawkeye</a><br/>
+          <a href="title.html">Hulk, The</a><br/>
+          <a href="title.html">Invincible Iron Man, The</a><br/>
+          <a href="title.html">Iron Man</a><br/>
+          <a href="title.html">Marvel Age</a><br/>
+          <a href="title.html">Marvel Comics Presents</a><br/>
+          <a href="title.html">S.H.I.E.L.D.</a><br/>
+          <a href="title.html">Spider-man</a><br/>
+          <a href="title.html">Star Wars (1977)</a><br/>
+          <a href="title.html">Star Wars: Boba Fett – Agent of Doom</a><br/>
+          <a href="title.html">Star Wars: Dark Times</a><br/>
         </p>
       </div>
     </div><!-- End Row 1 -->

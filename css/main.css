@@ -9,7 +9,6 @@ body {
 }
 
 .right {
-	float: right;
 	padding: 30px 0 15px 15px;
 }
 .row {
@@ -51,15 +50,6 @@ body {
 	margin-bottom: 15px;
 }
 
-#tCart, .checkoutDiv {
-	width: 85%;
-	margin: 20px auto;
-}
-
-#tCheckout {
-	width: 100%;
-	margin-bottom: 30px;
-}
 .centerThx {
 	width: 60%;
 	margin: 0 auto;
@@ -68,13 +58,12 @@ body {
 .modal.modal-wide .modal-dialog {
   width: 66%;
 }
-.modal-body {
+#comicModal .modal-body {
 	padding-right: 50px;
 }
-.modal-wide .modal-body {
-  overflow-y: auto;
+.modal-body {
+	overflow-y: auto;
 }
-
 footer {
 	background-color: #093968;
 	color: #fff;
@@ -247,16 +236,37 @@ button.close:hover {
 	background-color: #093968;
 	border: none;
 }
-input[type=checkbox] {
-	margin: 10px;
-	outline: 1px solid #B32513; 
+input[type="checkbox"] {
+    display:none;
 }
-
+input[type="checkbox"] + label span {
+    display:inline-block;
+    width:24px;
+    height:20px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    background:url(../images/checkbox_icon_24x40.gif) right top no-repeat;
+    cursor:pointer;
+}
+input[type="checkbox"]:checked + label span {
+    background:url(../images/checkbox_icon_24x40.gif) right -20px no-repeat;
+}
+form#loginForm, form#signupForm {
+	width: 66%;
+	margin: 0 auto;
+}
 /* ---------table styles--------- */
 .table>tbody>tr>th {
 	padding: 0;
 }
-
 .table>tbody>tr>td {
 	padding-left: 15px;
+}
+#tCart, .checkoutDiv {
+	width: 85%;
+	margin: 20px auto;
+}
+#tCheckout {
+	width: 100%;
+	margin-bottom: 30px;
 }

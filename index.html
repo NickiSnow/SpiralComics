@@ -52,8 +52,10 @@
 <!-- Begin Content Container -->
   <div class="container">
     <header>
-      <img src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
-      <div class="right"><a href="#">Login</a> | <a href="#">Sign Up</a></div>
+      <div class="row">
+        <img src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
+        <div class="pull-right right"><a href="" data-toggle="modal" data-target="#loginModal">Log In</a> | <a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a></div>
+      </div>
       <div id="custom-menu" class="navbar navbar-default " role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -165,6 +167,63 @@
         <p>Comic Movie RSS Feed</p>
       </div>
     </div><!-- End Row 4 -->
+    <!-- loginModal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">  
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+            <img class="img-responsive center-block" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
+            <form id="loginForm" action="" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>         
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+              <button type="submit" class="pull-right">Log In</button>
+            </form>
+          </div><!-- /.modal-body -->
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- signupModal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">  
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+            <img class="img-responsive center-block" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
+            <form id="signupForm" action="" method="post">
+              <div class="form-group">
+                <label for="fName">Name</label>
+                <input type="text" class="form-control" id="fName" name="fName">
+                <input type="text" class="form-control" id="lname" name="lName">
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email">
+              </div> 
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username">
+              </div>         
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+              </div>
+              <input type="checkbox" checked id="newsletter" name="newsletter" />
+              <label for="newsletter"><span></span>I would like to receive the monthly eNewsletter</label>
+              <input type="checkbox" checked id="agree" name="agree" />
+              <label for="agree"><span></span>I Agree to the <a href="terms.html">Terms &amp; Conditions</a></label><br/>
+              <button type="submit" class="pull-right">Submit</button>
+            </form>
+          </div><!-- /.modal-body -->
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <footer class="row">
       <p class="col-lg-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>
       <p class="col-lg-2"><span class="bold">Site Links</span><br/>

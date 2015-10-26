@@ -283,6 +283,16 @@ form#orders {
 form.inventory .form-control {
 	margin: 0 30px 0 0;
 }
+form#addInv {
+	width: 66%;
+	margin: 0 auto 30px auto;
+	background-color: #DDDDDD;
+	border: 2px solid #B32513;
+	padding: 15px 0;
+}
+a#add{
+	margin-top: 25px;
+}
 /* ---------table styles--------- */
 .table>tbody>tr>th {
 	padding: 0;

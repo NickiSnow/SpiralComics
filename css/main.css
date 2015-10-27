@@ -24,12 +24,8 @@ body {
 }
 .red-box {
 	border: 3px solid #B32513;
-	width: 30%;
-	margin-top: 15px;
-	margin-right: 1.5%;
-	margin-left: 1.5%;
-	margin-bottom: 15px;
-	float:left;
+	width: 100%;
+	margin: 15px auto;
 }
 .grey-box {
 	background-color: #DDDDDD;
@@ -283,12 +279,15 @@ form#orders {
 form.inventory .form-control {
 	margin: 0 30px 0 0;
 }
-form#addInv {
+form#addInv, form#adminLogin {
 	width: 66%;
 	margin: 0 auto 30px auto;
 	background-color: #DDDDDD;
 	border: 2px solid #B32513;
 	padding: 15px 0;
+}
+form#adminLogin {
+	width: 45%;
 }
 a#add{
 	margin-top: 25px;
@@ -311,4 +310,42 @@ a#add{
 .table-striped>tbody>tr:nth-child(odd)>td, 
 .table-striped>tbody>tr:nth-child(odd)>th {
    background-color: #FFFACD;
- }
+}
+/* ----- Change screen width that navbar will collapse ----- */
+@media (max-width: 1200px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar-text {
+        float: none;
+        margin: 15px 0;
+    }
+    /* since 3.1.0 */
+    .navbar-collapse.collapse.in { 
+        display: block!important;
+    }
+    .collapsing {
+        overflow: hidden!important;
+    }
+}

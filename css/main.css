@@ -24,12 +24,8 @@ body {
 }
 .red-box {
 	border: 3px solid #B32513;
-	width: 30%;
-	margin-top: 15px;
-	margin-right: 1.5%;
-	margin-left: 1.5%;
-	margin-bottom: 15px;
-	float:left;
+	width: 100%;
+	margin: 15px auto;
 }
 .grey-box {
 	background-color: #DDDDDD;
@@ -46,10 +42,6 @@ body {
 }
 .about {
 	margin-bottom: 15px;
-}
-.centerThx {
-	width: 60%;
-	margin: 0 auto;
 }
 .modal.modal-wide .modal-dialog {
   width: 66%;
@@ -72,6 +64,7 @@ footer {
 }
 
 img#modalImage {
+	width: 100%;
 	max-width: 350px;
 }
 
@@ -83,6 +76,9 @@ h1 {
 	font-style: bold;
 	text-align: center;
 	font-size: 2.5em;
+}
+h1#admin {
+	color: #B32513;
 }
 h2 {
 	background-color: #093968;
@@ -138,15 +134,35 @@ a#publisherDrop:hover, a#publisherDrop:active {
 	background-color: #fff;
 }
 
-/* ---------navigation styles--------- */
+/* ---------rss styles--------- */
+.rssBody ul {
+	padding: 0 10px;
+	margin-top: 5px;
+	margin-bottom: 15px;
+}
+.rssBody ul li {
+	list-style: none;
+}
+.rssBody ul li:not(:last-child){
+	border-bottom:  2px solid #B32513;
+	margin-bottom: 5px;
+}
 
+/* ---------navigation styles--------- */
+#admin-menu.navbar-default,
 #custom-menu.navbar-default {
     font-size: 1em;
     font-style: bold;
-    background-color: #093968;
     border-width: 0px;
     border-radius: 0px;
 }
+#custom-menu.navbar-default {
+    background-color: #093968;
+}
+#admin-menu.navbar-default {
+    background-color: #B32513;
+}
+#admin-menu.navbar-default .navbar-nav>li>a,
 #custom-menu.navbar-default .navbar-nav>li>a {
     color: #fff;
     padding: 15px 30px;
@@ -155,6 +171,11 @@ a#publisherDrop:hover, a#publisherDrop:active {
 #custom-menu.navbar-default .navbar-nav>li.active>a {
     background-color: #166ba5;
 }
+#admin-menu.navbar-default .navbar-nav>li.active>a {
+    background-color: #721411;
+}
+#admin-menu.navbar-default .navbar-nav>li>a:hover,
+#admin-menu.navbar-default .navbar-nav>li>a:focus,
 #custom-menu.navbar-default .navbar-nav>li>a:hover,
 #custom-menu.navbar-default .navbar-nav>li>a:focus {
     color: #F9DD50;
@@ -248,6 +269,26 @@ form#loginForm, form#signupForm {
 	width: 66%;
 	margin: 0 auto;
 }
+form#orders {
+	overflow: auto;
+	margin-bottom: 30px;
+}
+form.inventory .form-control {
+	margin: 0 30px 0 0;
+}
+form#addInv, form#adminLogin {
+	width: 66%;
+	margin: 0 auto 30px auto;
+	background-color: #DDDDDD;
+	border: 2px solid #B32513;
+	padding: 15px 0;
+}
+form#adminLogin {
+	width: 45%;
+}
+a#add{
+	margin-top: 25px;
+}
 /* ---------table styles--------- */
 .table>tbody>tr>th {
 	padding: 0;
@@ -262,4 +303,46 @@ form#loginForm, form#signupForm {
 #tCheckout {
 	width: 100%;
 	margin-bottom: 30px;
+}
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #FFFACD;
+}
+/* ----- Change screen width that navbar will collapse ----- */
+@media (max-width: 1200px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar-text {
+        float: none;
+        margin: 15px 0;
+    }
+    /* since 3.1.0 */
+    .navbar-collapse.collapse.in { 
+        display: block!important;
+    }
+    .collapsing {
+        overflow: hidden!important;
+    }
 }

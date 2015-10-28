@@ -52,9 +52,13 @@
 <!-- Begin Content Container -->
   <div class="container">
     <header>
-      <div class="row">
-        <img src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
-        <div class="right pull-right"><a href="cart.html">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (2)</a> | Hi, Username!</div>
+    <div class="row">
+        <div class="col-xs-7">
+          <img class="img-responsive" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
+        </div>
+        <div class="col-xs-5">
+          <div class="pull-right right"><a href="cart.html">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (2)</a> | Hi, Username!</div>
+        </div>
       </div>
       <div id="custom-menu" class="navbar navbar-default " role="navigation">
           <div class="container-fluid">
@@ -85,7 +89,7 @@
     </header>
     <div class="row">
       <h1>Shop Spiral Comics</h1>
-      <div class="col-lg-3">
+      <div class="col-md-3 col-sm-4 col-xs-6">
         <div class="form-group">
           <label for="filterBy">Filter By:</label>
           <select class="form-control" id="filterBy">
@@ -95,7 +99,7 @@
           </select>
         </div>
       </div>
-      <div class="col-lg-3">
+      <div class="col-md-3 col-sm-4 col-xs-6">
         <div class="form-group">
           <label for="sortBy">Sort By:</label>
           <select class="form-control" id="sortBy">
@@ -226,36 +230,42 @@
                 <h1 class="modal-title" id="title">ALL NEW X-MEN #40</h1>
               </div><!-- /.modal-header -->
               <div class="modal-body">
-                <div class="pull-left"><img class="img-responsive" id="modalImage" src="images/all_new_xmen_40.jpg"></div>
-                <h3>Creators</h3>
-                <p id="creators">Written by Brian Michael Bendis. Art by Mahmud Asrar.</p>
-                <h3>Description</h3>
-                <p id="description">Who are the Utopians? And what secret do they hold that pertains to the future of mutantkind? The All-New X-Men may regret finding out!</p>
-                <h3>Condition</h3>
-                <p id="condition">NM/Unread</p>
-                <h3>Price $3.99</h3>
-                <button class="pull-right">Add To Cart</button>
+                <div class="row">
+                <div class="col-md-5 col-sm-6">
+                  <div class="pull-left"><img class="img-responsive" id="modalImage" src="images/all_new_xmen_40.jpg"></div>
+                </div>
+                <div class="col-md-7 col-sm-6">
+                  <h3>Creators</h3>
+                  <p id="creators">Written by Brian Michael Bendis. Art by Mahmud Asrar.</p>
+                  <h3>Description</h3>
+                  <p id="description">Who are the Utopians? And what secret do they hold that pertains to the future of mutantkind? The All-New X-Men may regret finding out!</p>
+                  <h3>Condition</h3>
+                  <p id="condition">NM/Unread</p>
+                  <h3>Price $3.99</h3>
+                  <button class="pull-right">Add To Cart</button>
+                </div>
+              </div>
               </div><!-- /.modal-body -->
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
     </div><!-- End Row 2 -->
     <footer class="row">
-      <p class="col-lg-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>
-      <p class="col-lg-2"><span class="bold">Site Links</span><br/>
+      <p class="col-md-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>
+      <p class="col-md-2"><span class="bold">Site Links</span><br/>
         <a href="index.html">Home</a><br/>
         <a href="shop.html">Shop</a><br/>
         <a href="browse.html">Browse by Title</a><br/>
         <a href="about.html">About Us</a><br/>
         <a href="shipping.html">Shipping</a></p>
-      <p class="col-lg-2"><span class="bold">Shopping Catogories</span><br/>
+      <p class="col-md-2"><span class="bold">Shopping Catogories</span><br/>
         <a href="shop.html?new">Newly Added</a><br/>
         <a href="shop.html?cgc">CGC<br/>Featured Title</a><br/>
         <a href="shop.html?dollar">Dollar Deals</a></p>
-      <p class="col-lg-2"><span class="bold">The Fine Print</span><br/>
+      <p class="col-md-2"><span class="bold">The Fine Print</span><br/>
         <a href="terms.html">Terms &amp; Conditions</a><br/>
         <a href="terms.html?privacy">Privacy Policy</a></p>
-      <p class="col-lg-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>info@spiralcomics.com</p>      
+      <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>info@spiralcomics.com</p>      
     </footer>
   </div> <!-- End Container -->
   <!-- Javascript

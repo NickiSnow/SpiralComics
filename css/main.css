@@ -43,10 +43,6 @@ body {
 .about {
 	margin-bottom: 15px;
 }
-.centerThx {
-	width: 60%;
-	margin: 0 auto;
-}
 .modal.modal-wide .modal-dialog {
   width: 66%;
 }
@@ -68,6 +64,7 @@ footer {
 }
 
 img#modalImage {
+	width: 100%;
 	max-width: 350px;
 }
 

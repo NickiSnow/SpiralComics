@@ -304,6 +304,9 @@ a#add{
 }
 /* ----- Change screen width that navbar will collapse ----- */
 @media (max-width: 1000px) {
+	.navbar-right {
+		float: none!important;
+	}
     .navbar-header {
         float: none;
     }

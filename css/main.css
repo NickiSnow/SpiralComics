@@ -191,11 +191,6 @@ a#publisherDrop:hover, a#publisherDrop:active {
 	border: 2px solid #093968;
 	margin-bottom: 5px;
 }
-
-.search {
-	width: 200px;
-	margin: 0;
-}
 select#state, select#sortBy, select#filterBy {
 	-webkit-appearance: none;
     -moz-appearance: none;
@@ -234,8 +229,7 @@ button.close:hover {
 	background-color: #fff;
 	border: none;
 }
-.search {
-	height: 34px;
+form.search>.input-group {
 	width: 300px;
 }
 .searchBtn {
@@ -309,7 +303,7 @@ a#add{
    background-color: #FFFACD;
 }
 /* ----- Change screen width that navbar will collapse ----- */
-@media (max-width: 1200px) {
+@media (max-width: 1000px) {
     .navbar-header {
         float: none;
     }

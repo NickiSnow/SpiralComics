@@ -55,7 +55,7 @@
 
 	function password_encrypt($password) {
   	$hash_format = "$2y$10$";   // Tells PHP to use Blowfish with a "cost" of 10
-	  $salt_length = 22; 					// Blowfish salts should be 22-characters or more
+	  $salt_length = 22; 		// Blowfish salts should be 22-characters or more
 	  $salt = generate_salt($salt_length);
 	  $format_and_salt = $hash_format . $salt;
 	  $hash = crypt($password, $format_and_salt);
@@ -81,8 +81,8 @@
 	
 	function password_check($password, $existing_hash) {
 		// existing hash contains format and salt at start
-	  //$hash = crypt($password, $existing_hash);
-	  if ($password === $existing_hash) {
+	  $hash = crypt($password, $existing_hash);
+	  if ($hash === $existing_hash) {
 	    return true;
 	  } else {
 	    return false;

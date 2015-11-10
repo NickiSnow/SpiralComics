@@ -11,15 +11,12 @@ if (isset($_POST['submit_register'])) {
 	$username = $_POST["username"];
 	$password = $_POST["password"];
 
-	if (!empty($errors)) {
-		$_SESSION["errors"] = $errors;
-		redirect_to("about.html");
-	}
+	$hashed_password = password_encrypt($password);
 	
 	$query  = "INSERT INTO tbl_users (";
 	$query .= "  username, password, email, first_name, last_name";
 	$query .= ") VALUES (";
-	$query .= "  '{$username}', '{$password}', '{$email}', '{$fName}', '{$lName}'";
+	$query .= "  '{$username}', '{$hashed_password}', '{$email}', '{$fName}', '{$lName}'";
 	$query .= ")";
 	$result = mysqli_query($connection, $query);
 

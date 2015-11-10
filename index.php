@@ -1,6 +1,7 @@
 <?php
 require_once('login.php'); // Includes User Login Script
 require_once('register.php');// Includes User Registration Script
+require_once('includes/db_connection.php');// Includes Database Connection Script
 ?>
 
 <!DOCTYPE html>
@@ -142,8 +143,21 @@ require_once('register.php');// Includes User Registration Script
         <a href="shop.html?filter=cgc"><h2>CGC Graded Comics</h2></a>
           <div class="row box-content">
             <div class="col-md-7 col-sm-4 col-xs-8">
-              <a href="" data-toggle="modal" data-target="#comicModal"><img class="img-responsive" src="images/guardians_of_the_galaxy_01_0250569011.JPG" alt="CGC Comic cover"></a>
+              <a href="" data-toggle="modal" data-target="#comicModal">
+<?php
+  $query  = 'SELECT * from tbl_inventory ';
+  $query .= 'WHERE type_id=3 ';
+  $query .= 'LIMIT 1';
+  $cgc_result = mysqli_query($connection, $query);
+  $cgc_result = mysqli_fetch_array($cgc_result);
+?>
+              <?php
+              echo '<img class="img-responsive" src="images/comics/'.$cgc_result['picture_500'].'" alt="CGC Comic cover"></a>';
+              
+              ?>
+
               <p>GUARDIANS OF THE GALAXY #1<br/>MARVEL<br/>CGC 9.8<br/>Price: $74.99</p>
+              
             </div>
             <div class="col-md-5 col-sm-5 col-xs-4">
               <img class="img-responsive middle" src="images/cgc.jpeg" alt="CGC Logo">
@@ -213,7 +227,7 @@ require_once('register.php');// Includes User Registration Script
             <form id="loginForm" action="" method="POST">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" required autofocus>
+                    <input type="text" class="form-control" id="username" name="username" required>
                 </div>         
                 <div class="form-group">
                     <label for="password">Password</label>
@@ -236,7 +250,7 @@ require_once('register.php');// Includes User Registration Script
             <form id="signupForm" action="" method="POST">
               <div class="form-group">
                 <label for="fName">Name</label>
-                <input type="text" class="form-control" id="fName" name="fName" required autofocus>
+                <input type="text" class="form-control" id="fName" name="fName" required>
                 <input type="text" class="form-control" id="lName" name="lName" required>
               </div>
               <div class="form-group">

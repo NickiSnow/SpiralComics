@@ -1,7 +1,7 @@
 
 (function($){
 
-	//Format rss feed
+  /*---------------- Format RSS Feed ------------------*/
   $('#marvel').rssfeed('http://marvel.com/feeds/rss/comics_news', {
     limit: 3,
 		header: false,

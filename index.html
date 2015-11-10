@@ -57,7 +57,20 @@
           <img class="img-responsive" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
         </div>
         <div class="col-xs-5">
-          <div class="pull-right right"><a href="" data-toggle="modal" data-target="#loginModal">Log In</a> | <a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a></div>
+          <div class="pull-right right">
+            <?php 
+              if(isset($_SESSION['cart'])){
+                echo '<a href="cart.html">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> ('.sizeof($_SESSION['cart']).')&nbsp;&nbsp|';
+              }
+            ?></a>
+            <?php
+              if(isset($_SESSION['username'])){
+                  echo 'Hi, '.$_SESSION['user_name'].'!';
+                  echo '&nbsp;&nbsp;&nbsp;<a href="#">Logout</a>';
+              }else{
+                echo '<a href="" data-toggle="modal" data-target="#loginModal">Log In</a> | <a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a>';
+            }?>
+          </div>
         </div>
       </div>
       <nav id="custom-menu" class="navbar navbar-default " role="navigation">

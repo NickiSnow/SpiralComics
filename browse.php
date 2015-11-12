@@ -1,3 +1,8 @@
+<?php
+require_once('login.php'); // Includes User Login Script
+require_once('register.php');// Includes User Registration Script
+require_once('includes/db_connection.php');// Includes Database Connection Script
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -54,10 +59,23 @@
     <header>
       <div class="row">
         <div class="col-xs-7">
-          <a href="index.html"><img class="img-responsive" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" /></a>
+          <a href="index.php"><img class="img-responsive" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" /></a>
         </div>
         <div class="col-xs-5">
-          <div class="pull-right right"><a href="cart.html">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (2)</a> | Hi, Username!</div>
+          <div class="pull-right right">
+            <?php 
+              if(isset($_SESSION['cart'])){
+                echo '<a href="cart.php">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> ('.sizeof($_SESSION['cart']).')&nbsp;&nbsp|';
+              }
+            ?></a>
+            <?php
+              if(isset($_SESSION['username'])){
+                  echo 'Hi, '.$_SESSION['username'].'!';
+                  echo '&nbsp;&nbsp;&nbsp;<a href="logout.php">Logout</a>';
+              }else{
+                echo '<a href="" data-toggle="modal" data-target="#loginModal">Log In</a> | <a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a>';
+            }?>
+          </div>
         </div>
       </div>
       <nav id="custom-menu" class="navbar navbar-default " role="navigation">
@@ -67,13 +85,13 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-menu">
             <ul class="nav navbar-nav">
-                <li><a href="index.html">Home</a>
+                <li><a href="index.php">Home</a>
                 </li>
-                <li><a href="shop.html">Shop Spiral Comics</a>
+                <li><a href="shop.php">Shop Spiral Comics</a>
                 </li>
-                <li class="active"><a href="browse.html">Browse Titles</a>
+                <li class="active"><a href="browse.php">Browse Titles</a>
                 </li>
-                <li><a href="about.html">About Us</a>
+                <li><a href="about.php">About Us</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-right search" role="search">
@@ -133,53 +151,98 @@
         </div>
       </div>
       <div class="col-lg-9 col-md-8 col-sm-7">
-        <p><a href="title.html">52</a><br/>
-          <a href="title.html">52 Aftermath: The Four Horsemen</a><br/>
-          <a href="title.html">Action Comics</a><br/>
-          <a href="title.html">Adventure Comics</a><br/>
-          <a href="title.html">Adventures of Superman</a><br/>
-          <a href="title.html">All-New X-Factor</a><br/>
-          <a href="title.html">All-New X-Men</a><br/>
-          <a href="title.html">Amazing Fantasy</a><br/>
-          <a href="title.html">Amazing Spider-man, The</a><br/>
-          <a href="title.html">Amazing X-men</a><br/>
-          <a href="title.html">Antman</a><br/>
-          <a href="title.html">Avengers, The</a><br/>
-          <a href="title.html">Buffy the Vampire Slayer</a><br/>
-          <a href="title.html">Captain America</a><br/>
-          <a href="title.html">Conan the Cimmerian</a><br/>
-          <a href="title.html">Daredevil</a><br/>
-          <a href="title.html">Dark Reign:The List-The Avengers</a><br/>
-          <a href="title.html">Defenders Volume 1, The</a><br/>
-          <a href="title.html">Hawkeye</a><br/>
-          <a href="title.html">Hulk, The</a><br/>
-          <a href="title.html">Invincible Iron Man, The</a><br/>
-          <a href="title.html">Iron Man</a><br/>
-          <a href="title.html">Marvel Age</a><br/>
-          <a href="title.html">Marvel Comics Presents</a><br/>
-          <a href="title.html">S.H.I.E.L.D.</a><br/>
-          <a href="title.html">Spider-man</a><br/>
-          <a href="title.html">Star Wars (1977)</a><br/>
-          <a href="title.html">Star Wars: Boba Fett – Agent of Doom</a><br/>
-          <a href="title.html">Star Wars: Dark Times</a><br/>
+        <p>
+          <?php
+            $query  = 'SELECT tbl_titles.title FROM tbl_inventory ';
+            $query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
+            $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
+            $query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
+            $query .= 'GROUP BY tbl_titles.title ASC ';      
+
+            $result = mysqli_query($connection, $query);
+            confirm_query($result);
+
+            while($row = mysqli_fetch_array($result)) {
+              echo '<a href="title.php?filter='.$row['title'].'">';
+              echo $row['title'];
+              echo '</a><br/>';
+            }
+          ?>
         </p>
       </div>
     </div><!-- End Row 1 -->
+    <!-- loginModal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">  
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+            <img class="img-responsive center-block" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
+            <form id="loginForm" action="" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>         
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+              <button type="submit" name="submit_login" class="pull-right">Log In</button>
+            </form>
+          </div><!-- /.modal-body -->
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- signupModal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">  
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+            <img class="img-responsive center-block" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
+            <form id="signupForm" action="" method="POST">
+              <div class="form-group">
+                <label for="fName">Name</label>
+                <input type="text" class="form-control" id="fName" name="fName" required>
+                <input type="text" class="form-control" id="lName" name="lName" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div> 
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+              </div>         
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+              <input type="checkbox" checked id="newsletter" name="newsletter" />
+              <label for="newsletter"><span></span>I would like to receive the monthly eNewsletter</label>
+              <input type="checkbox" checked id="agree" name="agree" required />
+              <label for="agree"><span></span>I Agree to the <a href="terms.php">Terms &amp; Conditions</a></label><br/>
+              <button type="submit" name="submit_register" class="pull-right">Submit</button>
+            </form>
+          </div><!-- /.modal-body -->
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <footer class="row">
       <p class="col-md-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>
       <p class="col-md-2"><span class="bold">Site Links</span><br/>
-        <a href="index.html">Home</a><br/>
-        <a href="shop.html">Shop</a><br/>
-        <a href="browse.html">Browse by Title</a><br/>
-        <a href="about.html">About Us</a><br/>
-        <a href="shipping.html">Shipping</a></p>
+        <a href="index.php">Home</a><br/>
+        <a href="shop.php">Shop</a><br/>
+        <a href="browse.php">Browse by Title</a><br/>
+        <a href="about.php">About Us</a><br/>
+        <a href="shipping.php">Shipping</a></p>
       <p class="col-md-2"><span class="bold">Shopping Catogories</span><br/>
-        <a href="shop.html?new">Newly Added</a><br/>
-        <a href="shop.html?cgc">CGC<br/>Featured Title</a><br/>
-        <a href="shop.html?dollar">Dollar Deals</a></p>
+        <a href="shop.php?filter=new">Newly Added</a><br/>
+        <a href="shop.php?filter=cgc">CGC<br/>Featured Title</a><br/>
+        <a href="shop.php?filter=dollar">Dollar Deals</a></p>
       <p class="col-md-2"><span class="bold">The Fine Print</span><br/>
-        <a href="terms.html">Terms &amp; Conditions</a><br/>
-        <a href="terms.html?privacy">Privacy Policy</a></p>
+        <a href="terms.php">Terms &amp; Conditions</a><br/>
+        <a href="terms.php#privacy">Privacy Policy</a></p>
       <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>info@spiralcomics.com</p>      
     </footer>
   </div> <!-- End Container -->

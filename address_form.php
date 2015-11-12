@@ -1,3 +1,7 @@
+<?php
+require_once('login.php'); // Includes User Login Script
+require_once('register.php');// Includes User Registration Script
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -54,10 +58,23 @@
     <header>
       <div class="row">
         <div class="col-xs-7">
-          <a href="index.html"><img class="img-responsive" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" /></a>
+          <a href="index.php"><img class="img-responsive" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" /></a>
         </div>
         <div class="col-xs-5">
-          <div class="pull-right right"><a href="cart.html">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (2)</a> | Hi, Username!</div>
+          <div class="pull-right right">
+            <?php 
+              if(isset($_SESSION['cart'])){
+                echo '<a href="cart.php">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> ('.sizeof($_SESSION['cart']).')&nbsp;&nbsp|';
+              }
+            ?></a>
+            <?php
+              if(isset($_SESSION['username'])){
+                  echo 'Hi, '.$_SESSION['username'].'!';
+                  echo '&nbsp;&nbsp;&nbsp;<a href="logout.php">Logout</a>';
+              }else{
+                echo '<a href="" data-toggle="modal" data-target="#loginModal">Log In</a> | <a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a>';
+            }?>
+          </div>
         </div>
       </div>
       <nav id="custom-menu" class="navbar navbar-default " role="navigation">
@@ -67,13 +84,13 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-menu">
             <ul class="nav navbar-nav">
-                <li><a href="index.html">Home</a>
+                <li><a href="index.php">Home</a>
                 </li>
-                <li><a href="shop.html">Shop Spiral Comics</a>
+                <li><a href="shop.php">Shop Spiral Comics</a>
                 </li>
-                <li><a href="browse.html">Browse Titles</a>
+                <li><a href="browse.php">Browse Titles</a>
                 </li>
-                <li><a href="about.html">About Us</a>
+                <li><a href="about.php">About Us</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-right search" role="search">
@@ -88,7 +105,7 @@
       </nav>
     </header>
     <div class=" row grey-box">
-        <a href="shop.html"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Continue Shopping</a>
+        <a href="shop.php"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Continue Shopping</a>
         <h1>Enter Your Shipping Address</h1>
         <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3">
             <form id="addressForm" action="" method="POST">
@@ -166,25 +183,25 @@
                     <label for="zip">Zipcode</label>
                     <input type="text" class="form-control" id="zip" name="zip">
                 </div>
-                <a class="button" href="checkout.html">Continue</a>
+                <a class="button" href="checkout.php">Continue</a>
             </form>
         </div>
     </div>    
     <footer class="row">
       <p class="col-md-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>
       <p class="col-md-2"><span class="bold">Site Links</span><br/>
-        <a href="index.html">Home</a><br/>
-        <a href="shop.html">Shop</a><br/>
-        <a href="browse.html">Browse by Title</a><br/>
-        <a href="about.html">About Us</a><br/>
-        <a href="shipping.html">Shipping</a></p>
+        <a href="index.php">Home</a><br/>
+        <a href="shop.php">Shop</a><br/>
+        <a href="browse.php">Browse by Title</a><br/>
+        <a href="about.php">About Us</a><br/>
+        <a href="shipping.php">Shipping</a></p>
       <p class="col-md-2"><span class="bold">Shopping Catogories</span><br/>
-        <a href="shop.html?new">Newly Added</a><br/>
-        <a href="shop.html?cgc">CGC<br/>Featured Title</a><br/>
-        <a href="shop.html?dollar">Dollar Deals</a></p>
+        <a href="shop.php?filter=new">Newly Added</a><br/>
+        <a href="shop.php?filter=cgc">CGC<br/>Featured Title</a><br/>
+        <a href="shop.php?filter=dollar">Dollar Deals</a></p>
       <p class="col-md-2"><span class="bold">The Fine Print</span><br/>
-        <a href="terms.html">Terms &amp; Conditions</a><br/>
-        <a href="terms.html?privacy">Privacy Policy</a></p>
+        <a href="terms.php">Terms &amp; Conditions</a><br/>
+        <a href="terms.php#privacy">Privacy Policy</a></p>
       <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>info@spiralcomics.com</p>      
     </footer>
   </div> <!-- End Container -->

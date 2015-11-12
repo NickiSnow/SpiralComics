@@ -1,3 +1,7 @@
+<?php
+require_once('login.php'); // Includes User Login Script
+require_once('register.php');// Includes User Registration Script
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -54,10 +58,23 @@
     <header>
       <div class="row">
         <div class="col-xs-7">
-          <a href="index.html"><img class="img-responsive" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" /></a>
+          <a href="index.php"><img class="img-responsive" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" /></a>
         </div>
         <div class="col-xs-5">
-          <div class="pull-right right"><a href="" data-toggle="modal" data-target="#loginModal">Log In</a> | <a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a></div>
+          <div class="pull-right right">
+            <?php 
+              if(isset($_SESSION['cart'])){
+                echo '<a href="cart.php">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> ('.sizeof($_SESSION['cart']).')&nbsp;&nbsp|';
+              }
+            ?></a>
+            <?php
+              if(isset($_SESSION['username'])){
+                  echo 'Hi, '.$_SESSION['username'].'!';
+                  echo '&nbsp;&nbsp;&nbsp;<a href="logout.php">Logout</a>';
+              }else{
+                echo '<a href="" data-toggle="modal" data-target="#loginModal">Log In</a> | <a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a>';
+            }?>
+          </div>
         </div>
       </div>
       <nav id="custom-menu" class="navbar navbar-default " role="navigation">
@@ -67,13 +84,13 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-menu">
             <ul class="nav navbar-nav">
-              <li><a href="index.html">Home</a>
+              <li><a href="index.php">Home</a>
               </li>
-              <li><a href="shop.html">Shop Spiral Comics</a>
+              <li><a href="shop.php">Shop Spiral Comics</a>
               </li>
-              <li><a href="browse.html">Browse Titles</a>
+              <li><a href="browse.php">Browse Titles</a>
               </li>
-              <li><a href="about.html">About Us</a>
+              <li><a href="about.php">About Us</a>
               </li>
             </ul>
             <form class="navbar-form navbar-right search" role="search">
@@ -98,7 +115,7 @@
           <li>excludes all liability for damages arising out of or in connection with your use of this website. This includes, without limitation, direct loss, loss of business or profits (whether or not the loss of such profits was foreseeable, arose in the normal course of things or you have advised this Company of the possibility of such potential loss), damage caused to your computer, computer software, systems and programs and the data thereon or any other direct or indirect, consequential and incidental damages. </li>
         </ul>
         <p>This Company does not however exclude liability for death or personal injury caused by its negligence. The above exclusions and limitations apply only to the extent permitted by law. None of your statutory rights as a consumer are affected.</p>
-        <h4>Privacy</h4>
+        <h4><a name="privacy"></a>Privacy</h4>
         <p>We respect your privacy. Information about you will not be sold or shared with outside parties.</p>
         <h4>Security</h4>
         <p>All orders placed at SpiralComics.com are processed over a secure, encrypted connection using 128 bit SSL.</p>
@@ -118,21 +135,78 @@
         <p>The Company reserves the right to change these conditions from time to time as it sees fit and your continued use of the site will signify your acceptance of any adjustment to these terms. If there are any changes to our privacy policy, we will announce that these changes have been made on our home page and on other key pages on our site. If there are any changes in how we use our site customers’ Personally Identifiable Information, notification by e-mail or postal mail will be made to those affected by this change. Any changes to our privacy policy will be posted on our web site 30 days prior to these changes taking place. You are therefore advised to re-read this statement on a regular basis.</p>
       </div>
     </div><!-- End Row 1 -->
+    <!-- loginModal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">  
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+            <img class="img-responsive center-block" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
+            <form id="loginForm" action="" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>         
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+              <button type="submit" name="submit_login" class="pull-right">Log In</button>
+            </form>
+          </div><!-- /.modal-body -->
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- signupModal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">  
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+            <img class="img-responsive center-block" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
+            <form id="signupForm" action="" method="POST">
+              <div class="form-group">
+                <label for="fName">Name</label>
+                <input type="text" class="form-control" id="fName" name="fName" required>
+                <input type="text" class="form-control" id="lName" name="lName" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div> 
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+              </div>         
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+              <input type="checkbox" checked id="newsletter" name="newsletter" />
+              <label for="newsletter"><span></span>I would like to receive the monthly eNewsletter</label>
+              <input type="checkbox" checked id="agree" name="agree" required />
+              <label for="agree"><span></span>I Agree to the <a href="terms.html">Terms &amp; Conditions</a></label><br/>
+              <button type="submit" name="submit_register" class="pull-right">Submit</button>
+            </form>
+          </div><!-- /.modal-body -->
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->    
     <footer class="row">
       <p class="col-md-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>
       <p class="col-md-2"><span class="bold">Site Links</span><br/>
-        <a href="index.html">Home</a><br/>
-        <a href="shop.html">Shop</a><br/>
-        <a href="browse.html">Browse by Title</a><br/>
-        <a href="about.html">About Us</a><br/>
-        <a href="shipping.html">Shipping</a></p>
+        <a href="index.php">Home</a><br/>
+        <a href="shop.php">Shop</a><br/>
+        <a href="browse.php">Browse by Title</a><br/>
+        <a href="about.php">About Us</a><br/>
+        <a href="shipping.php">Shipping</a></p>
       <p class="col-md-2"><span class="bold">Shopping Catogories</span><br/>
-        <a href="shop.html?new">Newly Added</a><br/>
-        <a href="shop.html?cgc">CGC<br/>Featured Title</a><br/>
-        <a href="shop.html?dollar">Dollar Deals</a></p>
+        <a href="shop.php?filter=new">Newly Added</a><br/>
+        <a href="shop.php?filter=cgc">CGC<br/>Featured Title</a><br/>
+        <a href="shop.php?filter=dollar">Dollar Deals</a></p>
       <p class="col-md-2"><span class="bold">The Fine Print</span><br/>
-        <a href="terms.html">Terms &amp; Conditions</a><br/>
-        <a href="terms.html?privacy">Privacy Policy</a></p>
+        <a href="terms.php">Terms &amp; Conditions</a><br/>
+        <a href="terms.php#privacy">Privacy Policy</a></p>
       <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>info@spiralcomics.com</p>      
     </footer>
   </div> <!-- End Container -->

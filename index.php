@@ -3,7 +3,6 @@ require_once('login.php'); // Includes User Login Script
 require_once('register.php');// Includes User Registration Script
 require_once('includes/db_connection.php');// Includes Database Connection Script
 ?>
-
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -54,13 +53,6 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
 	</style>
 <![endif]--> 
 </head>
-<body>
-<?php require_once("login.php");?>
-<pre>
-<?php
-  print_r($_SESSION);
-?>
-</pre>
 <!-- Begin Content Container -->
   <div class="container">
     <header>
@@ -72,7 +64,7 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
           <div class="pull-right right">
             <?php 
               if(isset($_SESSION['cart'])){
-                echo '<a href="cart.html">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> ('.sizeof($_SESSION['cart']).')&nbsp;&nbsp|';
+                echo '<a href="cart.php">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> ('.sizeof($_SESSION['cart']).')&nbsp;&nbsp|';
               }
             ?></a>
             <?php
@@ -94,11 +86,11 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a>
                 </li>
-                <li><a href="shop.html">Shop Spiral Comics</a>
+                <li><a href="shop.php">Shop Spiral Comics</a>
                 </li>
-                <li><a href="browse.html">Browse Titles</a>
+                <li><a href="browse.php">Browse Titles</a>
                 </li>
-                <li><a href="about.html">About Us</a>
+                <li><a href="about.php">About Us</a>
                 </li>
             </ul>
               <form class="navbar-form navbar-right search" role="search">
@@ -123,40 +115,52 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
     </div><!-- End Row 1 -->
     <div class="row">
       <div class="col-md-7 blue-box">
-        <a href="shop.html?filter=new"><h2>Newly added comics</h2></a>
+        <a href="shop.php?filter=new"><h2>Newly added comics</h2></a>
+        <?php
+          $query  = 'SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.number, tbl_comics.description, tbl_comics.creators, tbl_comics.variation_text, tbl_publishers.publisher FROM tbl_inventory ';
+          $query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
+          $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
+          $query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
+          $query .= 'JOIN tbl_publishers ON tbl_series.publisher_id=tbl_publishers.publisher_id ';
+          $query .= 'ORDER BY tbl_inventory.date_added DESC ';      
+          $query .= 'LIMIT 3';
+          $new_result = mysqli_query($connection, $query);
+          confirm_query($new_result);
+        ?>       
         <div class="row box-content">
-          <div class="col-sm-4">
-            <a href="" data-toggle="modal" data-target="#comicModal"><img class="img-responsive" src="images/darth_vader_2015_04.jpg" alt="comic cover"></a>
-            <p>DARTH VADER (2015) #4<br/>MARVEL<br/>NM/Unread<br/>Price: $3.99</p>
-          </div>
-          <div class="col-sm-4">
-            <a href="" data-toggle="modal" data-target="#comicModal"><img class="img-responsive" src="images/star_wars_2015_03.jpg" alt="comic cover"></a>
-            <p>STAR WARS (2015) #3<br/>MARVEL<br/>NM/Unread<br/>Price: $4.99</p>
-          </div>
-          <div class="col-sm-4">
-            <a href="" data-toggle="modal" data-target="#comicModal"><img class="img-responsive" src="images/x-men_2013_25.jpg" alt="comic cover"></a>
-            <p>X-MEN (2013) #25<br/>MARVEL<br/>NM/Unread<br/>Price: $3.49</p>
-          </div>
+        <?php
+          while($row = mysqli_fetch_array($new_result)) {
+            echo '<div class="col-sm-4">';
+            echo '<a href="" class="open-ComicDetails" data-title="'.$row['title'].'" data-number="'.$row['number'].'" data-variation="'.$row['variation_text'].'" data-description="'.$row['description'].'" data-image="'.$row['picture_500'].'" data-creators="'.$row['creators'].'" data-price="'.$row['price'].'" data-condition="'.$row['grade'].'" data-toggle="modal" data-target="#comicModal">';
+            echo '<img class="img-responsive" src="images/comics/'.$row['picture_500'].'" alt="comic cover"></a>';
+            echo '<p>'.$row['title'].' #'.$row['number'].' '.$row['variation_text'].'<br/>'.$row['publisher'].'<br/>'.$row['grade'].'<br/> Price: $'.$row['price'].'</p>';
+            echo '</div>';
+          }
+        ?>
         </div>
       </div>
       <div class="col-md-4 col-md-offset-1 blue-box">
-        <a href="shop.html?filter=cgc"><h2>CGC Graded Comics</h2></a>
+        <a href="shop.php?filter=cgc"><h2>CGC Graded Comics</h2></a>
           <div class="row box-content">
             <div class="col-md-7 col-sm-4 col-xs-8">
-              <a href="" data-toggle="modal" data-target="#comicModal">
-<?php
-  $query  = 'SELECT * from tbl_inventory ';
-  $query .= 'WHERE type_id=3 ';
-  $query .= 'LIMIT 1';
-  $cgc_result = mysqli_query($connection, $query);
-  $cgc_result = mysqli_fetch_array($cgc_result);
-?>
               <?php
-              echo '<img class="img-responsive" src="images/comics/'.$cgc_result['picture_500'].'" alt="CGC Comic cover"></a>';
-              
+                $query  = 'SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.number, tbl_comics.description, tbl_comics.creators, tbl_comics.variation_text, tbl_grades.grade_number FROM tbl_inventory ';
+                $query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
+                $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
+                $query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
+                $query .= 'JOIN tbl_grades ON tbl_inventory.grade=tbl_grades.grade ';
+                $query .= 'WHERE type_id=3 ';
+                $query .= 'ORDER BY RAND() ';      
+                $query .= 'LIMIT 1';
+                $cgc_result = mysqli_query($connection, $query);
+                confirm_query($new_result);
+                $cgc_result = mysqli_fetch_array($cgc_result);
               ?>
-
-              <p>GUARDIANS OF THE GALAXY #1<br/>MARVEL<br/>CGC 9.8<br/>Price: $74.99</p>
+              <?php
+                echo '<a href="" class="open-ComicDetails" data-title="'.$cgc_result['title'].'" data-number="'.$cgc_result['number'].'" data-variation="'.$cgc_result['variation_text'].'" data-description="'.$cgc_result['description'].'" data-image="'.$cgc_result['picture_500'].'" data-creators="'.$cgc_result['creators'].'" data-price="'.$cgc_result['price'].'" data-condition="CGC '.$cgc_result['grade_number'].'" data-toggle="modal" data-target="#comicModal">';
+                echo '<img class="img-responsive" src="images/comics/'.$cgc_result['picture_500'].'" alt="CGC Comic cover"></a>';
+                echo '<p>'.$cgc_result['title'].' #'.$cgc_result['number'].' '.$cgc_result['variation_text'].'<br/> CGC '.$cgc_result['grade_number'].'<br/> Price: $'.$cgc_result['price'].'</p>'
+              ?>
               
             </div>
             <div class="col-md-5 col-sm-5 col-xs-4">
@@ -167,28 +171,52 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
     </div><!-- End Row 2 -->
     <div class="row">
       <div class="col-md-7 blue-box">
-        <a href="title.html?title=sw1977"><h2>Featured Title: Star Wars (1977)</h2>
+        <?php
+          $query  = 'SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.number, tbl_comics.description, tbl_comics.creators, tbl_comics.variation_text, tbl_publishers.publisher FROM tbl_inventory ';
+          $query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
+          $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
+          $query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
+          $query .= 'JOIN tbl_publishers ON tbl_series.publisher_id=tbl_publishers.publisher_id ';
+          $query .= 'WHERE tbl_titles.title="STAR WARS" AND tbl_series.series="1977" ';      
+          $query .= 'LIMIT 3';
+          $feature_result = mysqli_query($connection, $query);
+          confirm_query($feature_result);
+        ?>
+        <a href="title.php?filter=STAR WARS"><h2>Featured Title: Star Wars</h2>
         <div class="row box-content">
-          <div class="col-sm-4">
-            <a href="" data-toggle="modal" data-target="#comicModal"><img class="img-responsive" src="images/star_wars_3.jpg" alt="comic cover"></a>
-            <p>STAR WARS (1977) #3<br/>MARVEL<br/>VF+<br/>Price: $19.99</p>
-          </div>
-          <div class="col-sm-4">
-            <a href="" data-toggle="modal" data-target="#comicModal"><img class="img-responsive" src="images/star_wars_4.jpg" alt="comic cover"></a>
-            <p>STAR WARS (1977) #4<br/>MARVEL<br/>VF<br/>Price: $17.99</p>
-          </div>
-          <div class="col-sm-4">
-            <a href="" data-toggle="modal" data-target="#comicModal"><img class="img-responsive" src="images/star_wars_5.jpg" alt="comic cover"></a>
-            <p>STAR WARS (1977) #5<br/>MARVEL<br/>NM<br/>Price: $21.99</p>
-          </div>
+        <?php
+          while($row = mysqli_fetch_array($feature_result)) {
+            echo '<div class="col-sm-4">';
+            echo '<a href="" class="open-ComicDetails" data-title="'.$row['title'].'" data-number="'.$row['number'].'" data-variation="'.$row['variation_text'].'" data-description="'.$row['description'].'" data-image="'.$row['picture_500'].'" data-creators="'.$row['creators'].'" data-price="'.$row['price'].'" data-condition="'.$row['grade'].'" data-toggle="modal" data-target="#comicModal">';
+            echo '<img class="img-responsive" src="images/comics/'.$row['picture_500'].'" alt="comic cover"></a>';
+            echo '<p>'.$row['title'].' #'.$row['number'].' '.$row['variation_text'].'<br/>'.$row['publisher'].'<br/>'.$row['grade'].'<br/> Price: $'.$row['price'].'</p>';
+            echo '</div>';
+          }
+        ?>
         </div>
       </div>
       <div class="col-md-4 col-md-offset-1 blue-box">
-        <a href="shop.html?filter=dollar"><h2>Dollar Deals</h2>
+        <a href="shop.php?filter=dollar"><h2>Dollar Deals</h2>
           <div class="row box-content">
             <div class="col-md-7 col-sm-4 col-xs-8">
-              <a href="" data-toggle="modal" data-target="#comicModal"><img class="img-responsive" src="images/my_little_pony_halloween_comicfest_2013.jpg" alt="Dollar Deal Comic Cover"></a>
-              <p>MY LITTLE PONY: HALLOWEEN EDITION, COMICFEST<br/>IDW<br/>NM/Unread<br/>Price: $1.00</p>
+              <?php
+                $query  = 'SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.number, tbl_comics.description, tbl_comics.creators, tbl_comics.variation_text, tbl_publishers.publisher FROM tbl_inventory ';
+                $query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
+                $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
+                $query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
+                $query .= 'JOIN tbl_publishers ON tbl_series.publisher_id=tbl_publishers.publisher_id ';
+                $query .= 'WHERE price=1.00 ';
+                $query .= 'ORDER BY RAND() ';      
+                $query .= 'LIMIT 1';
+                $dollar_result = mysqli_query($connection, $query);
+                confirm_query($dollar_result);
+                $dollar_result = mysqli_fetch_array($dollar_result);
+              ?>
+              <?php
+                echo '<a href="" class="open-ComicDetails" data-title="'.$dollar_result['title'].'" data-number="'.$dollar_result['number'].'" data-variation="'.$dollar_result['variation_text'].'" data-description="'.$dollar_result['description'].'" data-image="'.$dollar_result['picture_500'].'" data-creators="'.$dollar_result['creators'].'" data-price="'.$dollar_result['price'].'" data-condition="'.$dollar_result['grade'].'" data-toggle="modal" data-target="#comicModal">';
+                echo '<img class="img-responsive" src="images/comics/'.$dollar_result['picture_500'].'" alt="Dollar Deal Comic cover"></a>';
+                echo '<p>'.$dollar_result['title'].' #'.$dollar_result['number'].' '.$dollar_result['variation_text'].'<br/>'.$dollar_result['publisher'].'<br/>'.$dollar_result['grade'].'<br/> Price: $'.$dollar_result['price'].'</p>'
+              ?>
             </div>
             <div class="col-md-5 col-sm-5 col-xs-4">
               <img class="img-responsive middle" src="images/dollar_deal.gif" alt="CGC Logo">
@@ -234,7 +262,6 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
               <button type="submit" name="submit_login" class="pull-right">Log In</button>
-              <span><?php echo form_errors($errors); ?></span>
             </form>
           </div><!-- /.modal-body -->
         </div><!-- /.modal-content -->
@@ -268,7 +295,7 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
               <input type="checkbox" checked id="newsletter" name="newsletter" />
               <label for="newsletter"><span></span>I would like to receive the monthly eNewsletter</label>
               <input type="checkbox" checked id="agree" name="agree" required />
-              <label for="agree"><span></span>I Agree to the <a href="terms.html">Terms &amp; Conditions</a></label><br/>
+              <label for="agree"><span></span>I Agree to the <a href="terms.php">Terms &amp; Conditions</a></label><br/>
               <button type="submit" name="submit_register" class="pull-right">Submit</button>
             </form>
           </div><!-- /.modal-body -->
@@ -281,21 +308,21 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-              <h1 class="modal-title" id="title">ALL NEW X-MEN #40</h1>
+              <h1 class="modal-title" id="title"></h1>
             </div><!-- /.modal-header -->
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-5 col-sm-6">
-                  <div class="pull-left"><img class="img-responsive" id="modalImage" src="images/all_new_xmen_40.jpg"></div>
+                  <div class="pull-left"><img class="img-responsive" id="modalImage" src=""></div>
                 </div>
                 <div class="col-md-7 col-sm-6">
                   <h3>Creators</h3>
-                  <p id="creators">Written by Brian Michael Bendis. Art by Mahmud Asrar.</p>
+                  <p id="creators"></p>
                   <h3>Description</h3>
-                  <p id="description">Who are the Utopians? And what secret do they hold that pertains to the future of mutantkind? The All-New X-Men may regret finding out!</p>
+                  <p id="description"></p>
                   <h3>Condition</h3>
-                  <p id="condition">NM/Unread</p>
-                  <h3>Price $3.99</h3>
+                  <p id="condition"></p>
+                  <h3>Price $<span id="price"></span></h3>
                   <button class="pull-right">Add To Cart</button>
                 </div>
               </div>
@@ -306,18 +333,18 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
     <footer class="row">
       <p class="col-md-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>
       <p class="col-md-2"><span class="bold">Site Links</span><br/>
-        <a href="index.html">Home</a><br/>
-        <a href="shop.html">Shop</a><br/>
-        <a href="browse.html">Browse by Title</a><br/>
-        <a href="about.html">About Us</a><br/>
-        <a href="shipping.html">Shipping</a></p>
+        <a href="index.php">Home</a><br/>
+        <a href="shop.php">Shop</a><br/>
+        <a href="browse.php">Browse by Title</a><br/>
+        <a href="about.php">About Us</a><br/>
+        <a href="shipping.php">Shipping</a></p>
       <p class="col-md-2"><span class="bold">Shopping Catogories</span><br/>
-        <a href="shop.html?new">Newly Added</a><br/>
-        <a href="shop.html?cgc">CGC<br/>Featured Title</a><br/>
-        <a href="shop.html?dollar">Dollar Deals</a></p>
+        <a href="shop.php?filter=new">Newly Added</a><br/>
+        <a href="shop.php?filter=cgc">CGC<br/>Featured Title</a><br/>
+        <a href="shop.php?filter=dollar">Dollar Deals</a></p>
       <p class="col-md-2"><span class="bold">The Fine Print</span><br/>
-        <a href="terms.html">Terms &amp; Conditions</a><br/>
-        <a href="terms.html?privacy">Privacy Policy</a></p>
+        <a href="terms.php">Terms &amp; Conditions</a><br/>
+        <a href="terms.php#privacy">Privacy Policy</a></p>
       <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>info@spiralcomics.com</p>      
     </footer>
   </div> <!-- End Container -->

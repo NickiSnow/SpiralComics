@@ -302,6 +302,9 @@ a#add{
 .table-striped>tbody>tr:nth-child(odd)>th {
    background-color: #FFFACD;
 }
+td.narrow {
+	max-width: 200px;
+}
 /* ----- Change screen width that navbar will collapse ----- */
 @media (max-width: 1000px) {
 	.navbar-right {

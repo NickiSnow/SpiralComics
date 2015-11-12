@@ -1,3 +1,7 @@
+<?php
+require_once('login.php'); // Includes User Login Script
+require_once('register.php');// Includes User Registration Script
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -8,7 +12,7 @@
     ================================================== -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">    
-    <title>Spiral Comics Checkout</title>
+    <title>Thanks! From Spiral Comics</title>
     <meta name="description" content="Spiral Comics is an online comic book sales site that specializes in Star Wars comics and recent hot comics.">
     <meta name="author" content="Nicole Snow">
         <!-- Mobile Specific Metas
@@ -54,10 +58,23 @@
     <header>
       <div class="row">
         <div class="col-xs-7">
-          <a href="index.html"><img class="img-responsive" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" /></a>
+          <a href="index.php"><img class="img-responsive" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" /></a>
         </div>
         <div class="col-xs-5">
-          <div class="pull-right right"><a href="cart.html">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (2)</a> | Hi, Username!</div>
+          <div class="pull-right right">
+            <?php 
+              if(isset($_SESSION['cart'])){
+                echo '<a href="cart.php">View Cart <span class="red glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> ('.sizeof($_SESSION['cart']).')&nbsp;&nbsp|';
+              }
+            ?></a>
+            <?php
+              if(isset($_SESSION['username'])){
+                  echo 'Hi, '.$_SESSION['username'].'!';
+                  echo '&nbsp;&nbsp;&nbsp;<a href="logout.php">Logout</a>';
+              }else{
+                echo '<a href="" data-toggle="modal" data-target="#loginModal">Log In</a> | <a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a>';
+            }?>
+          </div>
         </div>
       </div>
       <nav id="custom-menu" class="navbar navbar-default " role="navigation">
@@ -67,14 +84,14 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-menu">
             <ul class="nav navbar-nav">
-                <li><a href="index.html">Home</a>
-                </li>
-                <li><a href="shop.html">Shop Spiral Comics</a>
-                </li>
-                <li><a href="browse.html">Browse Titles</a>
-                </li>
-                <li><a href="about.html">About Us</a>
-                </li>
+              <li><a href="index.php">Home</a>
+              </li>
+              <li><a href="shop.php">Shop Spiral Comics</a>
+              </li>
+              <li><a href="browse.php">Browse Titles</a>
+              </li>
+              <li><a href="about.php">About Us</a>
+              </li>
             </ul>
             <form class="navbar-form navbar-right search" role="search">
               <div class="input-group">
@@ -87,83 +104,28 @@
         </div>
       </nav>
     </header>
-    <div class=" row grey-box">
-        <a href="shop.html"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Continue Shopping</a>
-        <h1>Checkout</h1>
-			<div class="col-lg-7 col-md-6 checkout">
-		      <h3> Verify Your Order</h3>
-		      <table id="tCheckout" cellpadding="0" cellspacing="0">
-		         <tr>
-	              <th>Qty</th>
-	              <th>Item Description</th>
-	              <th class="text-right">Item Price</th>
-	              <th class="text-right">Sub-Total</th>
-		         </tr>
-		         <tr>
-                	<td>1</td>
-                	<td>Comic book title # -- Condition</td>
-                	<td class="text-right">&#36;4.99</td>
-                	<td class="text-right">&#36;4.99</td>
-	            </tr>
-		         <tr>
-                	<td>1</td>
-                	<td>Comic book title # -- Condition</td>
-                	<td class="text-right">&#36;3.99</td>
-                	<td class="text-right">&#36;3.99</td>
-	            </tr>	            
-		         <tr>
-		              <td></td>
-		              <td></td>
-		              <td class="text-right"><strong>Shipping</strong></td>
-		              <td class="text-right">&#36;5.50</td>
-		          </tr>
-		          <tr>
-		            <td></td>
-		            <td></td>
-		            <td class="text-right"><strong>Total</strong></td>
-		            <td class="text-right">&#36;14.98</td>
-		          </tr>
-		      </table>
-		   </div>
-		   <div class="col-lg-4 col-md-5 col-sm-6 checkout">
-		        <h3>Enter Payment Information</h3>
-		        <p>Mastercard, Visa, American Express Accepted</p>
-		      <form action="" method="POST" id="payment-form" class="form-inline">
-		        	<span class="payment-errors"></span>
-		        	<div class="form-group">
-		          	 <label for="number">Card Number</label>
-		              <input type="text" size="20" name="number" id="number" data-stripe="number" class="card-number form-control"/>
-		        	</div>
-		        	<div class="form-group">
-	          	  <label for="cvc">CVC</label>
-	              <input type="text" size="4" name="cvc" id="cvc" data-stripe="cvc" class="card-cvc form-control"/>
-	          	  <a href="#">&nbsp;&nbsp; <span class="glyphicon glyphicon-question-sign"></span> What is CVC?</a> 
-		        	</div>
-		        	<div class="form-group">
-	          	  <label for="date">Expiration (MM/YYYY)</label>
-	              <input type="text" size="2" name="date" id="date" data-stripe="exp-month" class="card-expiry-month form-control"/>
-	          	  <span> / </span>
-	          	  <input type="text" size="4" name="year" id="year" data-stripe="exp-year" class="card-expiry-year form-control"/>
-		        	</div>
-		        	<a class="button" href="thanks.html">Submit</a>
-		      </form>
-		   </div>
+    <div class="row grey-box">
+      <h1>Thanks for Shopping SpiralComics.com</h1>
+      <div class="col-lg-4 col-lg-offset-3 col-md-5 col-md-offset-2 col-sm-offset-1">
+        <p>Your payment has been received.</p>
+        <p>You will receive an email receipt shortly.</p>
+      </div>
     </div><!--End Row 1-->    
     <footer class="row">
       <p class="col-md-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>
       <p class="col-md-2"><span class="bold">Site Links</span><br/>
-        <a href="index.html">Home</a><br/>
-        <a href="shop.html">Shop</a><br/>
-        <a href="browse.html">Browse by Title</a><br/>
-        <a href="about.html">About Us</a><br/>
-        <a href="shipping.html">Shipping</a></p>
+        <a href="index.php">Home</a><br/>
+        <a href="shop.php">Shop</a><br/>
+        <a href="browse.php">Browse by Title</a><br/>
+        <a href="about.php">About Us</a><br/>
+        <a href="shipping.php">Shipping</a></p>
       <p class="col-md-2"><span class="bold">Shopping Catogories</span><br/>
-        <a href="shop.html?new">Newly Added</a><br/>
-        <a href="shop.html?cgc">CGC<br/>Featured Title</a><br/>
-        <a href="shop.html?dollar">Dollar Deals</a></p>
+        <a href="shop.php?filter=new">Newly Added</a><br/>
+        <a href="shop.php?filter=cgc">CGC<br/>Featured Title</a><br/>
+        <a href="shop.php?filter=dollar">Dollar Deals</a></p>
       <p class="col-md-2"><span class="bold">The Fine Print</span><br/>
-        <a href="terms.html">Terms &amp; Conditions</a><br/>
-        <a href="terms.html?privacy">Privacy Policy</a></p>
+        <a href="terms.php">Terms &amp; Conditions</a><br/>
+        <a href="terms.php#privacy">Privacy Policy</a></p>
       <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>info@spiralcomics.com</p>      
     </footer>
   </div> <!-- End Container -->

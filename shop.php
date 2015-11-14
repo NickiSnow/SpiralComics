@@ -108,22 +108,25 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
     <div class="row">
       <h1>Shop Spiral Comics</h1>
       <div class="col-md-3 col-sm-4 col-xs-6">
-        <div class="form-group">
-          <label for="filterBy">Filter By:</label>
-          <select class="form-control" id="filterBy">
-            <option>CGC Comics</option>
-            <option>Dollar Deals</option>
-            <option>Newly Added</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
-        <div class="form-group">
-          <label for="sortBy">Sort By:</label>
-          <select class="form-control" id="sortBy">
-            <option>Alphabetic</option>
-            <option>Published Date</option>
-          </select>
+        <form id="filterShop">
+          <div class="form-group">
+            <label for="filterBy">Filter By:</label>
+            <select class="form-control filterSelect" id="filterBy">
+              <?php 
+                if(!isset($_GET['filter'])){
+                  echo '<option>None</option>';
+                  echo '<option>CGC Graded</option>';
+                  echo '<option>Dollar Deals</option>';
+                  echo '<option>Newly Added</option>';
+                }else{
+                  echo '<option>None</option>';
+                  echo '<option '; if($_GET['filter'] == 'cgc') echo 'selected'; echo '>CGC Graded</option>';
+                  echo '<option '; if($_GET['filter'] == 'dollar') echo 'selected'; echo '>Dollar Deals</option>';
+                  echo '<option '; if($_GET['filter'] == 'new') echo 'selected'; echo '>Newly Added</option>';
+                }
+              ?>
+            </select>
+          </form>
         </div>
       </div>
     </div><!-- End Row 1 -->

@@ -21,6 +21,7 @@
     linktarget: '_blank'
   });
 
+  /*---------------- Format Comic Details Modal ------------------*/
   $(document).on("click", ".open-ComicDetails", function () {
       var selectedComicTitle = $(this).data('title');
       var selectedComicNumber = $(this).data('number');
@@ -39,6 +40,21 @@
       $("#creators").html(selectedComicCreators);
       $("#condition").html(selectedComicCond);
       $("#price").html(selectedComicPrice);
-  });    
+  });
+
+  /*---------------- Update Titles with Checkbox ------------------*/
+  $(function(){
+    $('.publisherCheckbox').on('change',function(){
+      $('#publisherForm').submit();
+    });
+  });
+
+  $(function(){
+    $('.typeCheckbox').on('change',function(){
+      $('#typeForm').submit();
+    });
+  });
+
+
 
 })(jQuery); // end jQuery document ready function

@@ -52,6 +52,9 @@ body {
 .modal-body {
 	overflow-y: auto;
 }
+p#titles {
+	min-height: 400px;
+}
 footer {
 	background-color: #093968;
 	color: #fff;
@@ -101,7 +104,7 @@ footer p a:hover {
 	color: #F9DD50;
 }
 
-ul#viewFormats, ul#viewPublishers {
+ul.format, ul.publisher {
 	list-style: none;
 	padding-left: 10px;	
 	background-color: #DDDDDD;

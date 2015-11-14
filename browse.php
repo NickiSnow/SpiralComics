@@ -111,53 +111,71 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
     <div class="row">
       <div class="col-lg-3 col-md-4 col-sm-5">
         <div class="dropdown">
-          <a id="publisherDrop" role="button" data-toggle="collapse" data-target="#viewPublishers">
+        <?php
+          $query_p  = 'SELECT tbl_inventory.*, tbl_publishers.publisher_id, tbl_publishers.publisher FROM tbl_inventory ';
+          $query_p .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
+          $query_p .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
+          $query_p .= 'JOIN tbl_publishers ON tbl_series.publisher_id=tbl_publishers.publisher_id ';
+          $query_p .= 'GROUP BY tbl_publishers.publisher ASC ';      
+
+          $result_p = mysqli_query($connection, $query_p);
+          confirm_query($result_p);
+        ?>
+          <a id="publisherDrop" role="button">
             <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-            Publisher (20)
+            Publisher (<?php echo mysqli_num_rows($result_p)?>)
           </a>
-          <ul class="collapse" id="viewPublishers" aria-labelledby="publisherDrop">
-            <li><input type="checkbox" id="publisher1" name="publisher1" value="Arcana Studios"><label for="publisher1"><span></span></label>Arcana Studios</li>
-            <li><input type="checkbox" id="publisher2" name="publisher2" value="Archie Publications"><label for="publisher2"><span></span></label>Archie Publications</li>
-            <li><input type="checkbox" id="publisher3" name="publisher3" value="Boom Studios"><label for="publisher3"><span></span></label>Boom Studios</li>
-            <li><input type="checkbox" id="publisher4" name="publisher4" value="CrossGen Comics"><label for="publisher4"><span></span></label>CrossGen Comics</li>
-            <li><input type="checkbox" id="publisher5" name="publisher5" value="Dark Horse"><label for="publisher5"><span></span></label>Dark Horse</li>
-            <li><input type="checkbox" id="publisher6" name="publisher6" value="DC Comics"><label for="publisher6"><span></span></label>DC Comics</li>
-            <li><input type="checkbox" id="publisher7" name="publisher7" value="DC/Vertigo"><label for="publisher7"><span></span></label>DC/Vertigo</li>
-            <li><input type="checkbox" id="publisher8" name="publisher8" value="DC/Wildstorm"><label for="publisher8"><span></span></label>DC/Wildstorm</li>
-            <li><input type="checkbox" id="publisher9" name="publisher9" value="Dell"><label for="publisher9"><span></span></label>Dell</li>
-            <li><input type="checkbox" id="publisher10" name="publisher10" value="Devil's Due"><label for="publisher10"><span></span></label>Devil's Due</li>
-            <li><input type="checkbox" id="publisher11" name="publisher11" value="Dynamite Entertainment"><label for="publisher11"><span></span></label>Dynamite Entertainment</li>
-            <li><input type="checkbox" id="publisher12" name="publisher12" value="Gold Key"><label for="publisher12"><span></span></label>Gold Key</li>
-            <li><input type="checkbox" id="publisher13" name="publisher13" value="IDW Publishing"><label for="publisher13"><span></span></label>IDW Publishing</li>
-            <li><input type="checkbox" id="publisher14" name="publisher14" value="Image"><label for="publisher14"><span></span></label>Image</li>
-            <li><input type="checkbox" id="publisher15" name="publisher15" value="Marvel"><label for="publisher15"><span></span></label>Marvel</li>
-            <li><input type="checkbox" id="publisher16" name="publisher16" value="Oni Press"><label for="publisher16"><span></span></label>Oni Press</li>
-            <li><input type="checkbox" id="publisher17" name="publisher17" value="Top Cow"><label for="publisher17"><span></span></label>Top Cow</li>
-            <li><input type="checkbox" id="publisher18" name="publisher18" value="Valiant"><label for="publisher18"><span></span></label>Valiant</li>
-            <li><input type="checkbox" id="publisher19" name="publisher19" value="Walt Disney Productions"><label for="publisher19"><span></span></label>Walt Disney Productions</li>
-            <li><input type="checkbox" id="publisher20" name="publisher20" value="Whitman"><label for="publisher20"><span></span></label>Whitman</li>
-          </ul>
-        </div>
-        <div class="dropdown">
-          <a id="formatDrop" role="button" data-toggle="collapse" data-target="#viewFormats">
-            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-            Format (3)
-          </a>
-          <ul class="collapse" id="viewFormats" aria-labelledby="formatDrop">
-            <li><input type="checkbox" id="cgc" name="cgc" value="cgc"><label for="cgc"><span></span></label>CGC Graded Comics</li>
-            <li><input type="checkbox" id="comics" name="comics" value="comics"><label for="comics"><span></span></label>Comic Books</li>
-            <li><input type="checkbox" id="trades" name="trades" value="trades"><label for="trades"><span></span></label>Trade Paperbacks</li>
-          </ul>
+          <form id="publisherForm" method="GET" action="">
+            <ul class="publisher">
+              <?php
+                while($row = mysqli_fetch_array($result_p)) {
+                  echo '<li><input type="checkbox" class="publisherCheckbox" id="'.$row['publisher_id'].'" name="'.$row['publisher_id'].'" value="'.$row['publisher'].'"'.(isset($_GET[$row['publisher_id']])?' checked':'').'><label for="'.$row['publisher_id'].'"><span></span></label>'.$row['publisher'].'</li>';
+                }
+              ?>
+            </ul>
+          </form>
         </div>
       </div>
       <div class="col-lg-9 col-md-8 col-sm-7">
-        <p>
+        <p id="titles">
           <?php
-            $query  = 'SELECT tbl_titles.title FROM tbl_inventory ';
-            $query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
-            $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
-            $query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
-            $query .= 'GROUP BY tbl_titles.title ASC ';      
+            if (isset($_GET[191])) {
+              $arguments[] = "publisher LIKE '%MAR%'";
+            }
+            if (isset($_GET[90])) {
+              $arguments[] = "publisher LIKE '%DC%'";
+            }
+            if (isset($_GET[85])) {
+              $arguments[] = "publisher LIKE '%DARK%'";
+            }
+            if (isset($_GET[57])) {
+              $arguments[] = "publisher LIKE '%BOOM%'";
+            }
+            if (isset($_GET[37])) {
+              $arguments[] = "publisher LIKE '%ASTON%'";
+            }
+            if (isset($_GET[153])) {
+              $arguments[] = "publisher LIKE '%IDW%'";
+            }
+            if(!empty($arguments)) {
+              $str = implode(' or ',$arguments);
+
+              $query  = 'SELECT tbl_publishers.publisher, tbl_titles.title FROM tbl_inventory ';
+              $query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
+              $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
+              $query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
+              $query .= 'JOIN tbl_publishers ON tbl_series.publisher_id=tbl_publishers.publisher_id ';
+              $query .= 'WHERE '.$str;         
+              $query .= 'GROUP BY tbl_titles.title ASC ';   
+
+            } else {
+              $query  = 'SELECT tbl_publishers.publisher, tbl_titles.title FROM tbl_inventory ';
+              $query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
+              $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
+              $query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
+              $query .= 'JOIN tbl_publishers ON tbl_series.publisher_id=tbl_publishers.publisher_id ';          
+              $query .= 'GROUP BY tbl_titles.title ASC ';   
+            }
 
             $result = mysqli_query($connection, $query);
             confirm_query($result);
@@ -250,5 +268,7 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
     ================================================== --> 
   <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.zrssfeed.min.js" type="text/javascript"></script>
+  <script src="js/main.js" type="text/javascript"></script>
 </body>
 </html>

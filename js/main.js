@@ -55,6 +55,10 @@
     });
   });
 
-
+  $(function(){
+    $('.filterSelect').on('change',function(){
+      $('#filterShop').submit();
+    });
+  });
 
 })(jQuery); // end jQuery document ready function

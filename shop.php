@@ -108,21 +108,21 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
     <div class="row">
       <h1>Shop Spiral Comics</h1>
       <div class="col-md-3 col-sm-4 col-xs-6">
-        <form id="filterShop">
+        <form id="filterShop" method="GET" action="">
           <div class="form-group">
             <label for="filterBy">Filter By:</label>
-            <select class="form-control filterSelect" id="filterBy">
+            <select class="form-control filterSelect" id="filterBy" name="filter">
               <?php 
                 if(!isset($_GET['filter'])){
-                  echo '<option>None</option>';
-                  echo '<option>CGC Graded</option>';
-                  echo '<option>Dollar Deals</option>';
-                  echo '<option>Newly Added</option>';
+                  echo '<option value="none">None</option>';
+                  echo '<option value="cgc">CGC Graded</option>';
+                  echo '<option value="dollar">Dollar Deals</option>';
+                  echo '<option value="new">Newly Added</option>';
                 }else{
-                  echo '<option>None</option>';
-                  echo '<option '; if($_GET['filter'] == 'cgc') echo 'selected'; echo '>CGC Graded</option>';
-                  echo '<option '; if($_GET['filter'] == 'dollar') echo 'selected'; echo '>Dollar Deals</option>';
-                  echo '<option '; if($_GET['filter'] == 'new') echo 'selected'; echo '>Newly Added</option>';
+                  echo '<option value="none">None</option>';
+                  echo '<option value="cgc" '; if($_GET['filter'] == 'cgc') echo 'selected'; echo '>CGC Graded</option>';
+                  echo '<option value="dollar" '; if($_GET['filter'] == 'dollar') echo 'selected'; echo '>Dollar Deals</option>';
+                  echo '<option value="new" '; if($_GET['filter'] == 'new') echo 'selected'; echo '>Newly Added</option>';
                 }
               ?>
             </select>
@@ -149,8 +149,26 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
             $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
             $query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
             $query .= 'JOIN tbl_publishers ON tbl_series.publisher_id=tbl_publishers.publisher_id ';
-            $query .= 'ORDER BY tbl_titles.title ASC ';      
-
+            
+            if (!isset($_GET['filter'])) {
+              $query .= 'ORDER BY tbl_titles.title ASC ';
+            } else {
+              if ($_GET['filter']=='none') {
+                $query .= 'ORDER BY tbl_titles.title ASC ';
+              }
+              if ($_GET['filter']=='cgc') {
+                $query .= 'WHERE tbl_inventory.type_id="3"';
+                $query .= 'ORDER BY tbl_titles.title ASC ';
+              }
+              if ($_GET['filter']=='dollar') {
+                $query .= 'WHERE tbl_inventory.price=1.00';
+                $query .= 'ORDER BY tbl_titles.title ASC ';
+              }
+              if ($_GET['filter']=='new') {
+                $query .= 'ORDER BY tbl_inventory.date_added DESC ';
+                $query .= 'LIMIT 20';
+              }                  
+            }
             $result = mysqli_query($connection, $query);
             confirm_query($result);
           ?>

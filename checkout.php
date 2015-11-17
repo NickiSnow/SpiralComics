@@ -1,6 +1,6 @@
 <?php
 require_once('login.php'); // Includes User Login Script
-require_once('register.php');// Includes User Registration Script
+confirm_logged_in();
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->

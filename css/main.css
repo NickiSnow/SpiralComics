@@ -136,6 +136,9 @@ a#publisherDrop:hover, a#publisherDrop:active {
 .breadcrumb {
 	background-color: #fff;
 }
+p#signUp {
+	margin-bottom: 50px;
+}
 
 /* ---------rss styles--------- */
 .rssBody ul {
@@ -265,6 +268,10 @@ input[type="checkbox"]:checked + label span {
 form#loginForm, form#signupForm {
 	width: 66%;
 	margin: 0 auto;
+}
+form#loginToCheckout {
+	width: 66%;
+	margin: 0 auto 70px auto;
 }
 form#orders {
 	overflow: auto;

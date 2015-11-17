@@ -144,6 +144,19 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
           </tr>
 
           <?php
+            // For pagination - the current page number ($current_page)
+            $current_page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
+
+            // For pagination - records per page ($per_page)
+            $per_page = 50;
+
+            // For pagination - total record count ($total_count)
+            $qry = 'SELECT COUNT(*) FROM tbl_inventory';
+            $count_result = mysqli_query($connection, $qry);
+            confirm_query($count_result);
+            $total = mysqli_fetch_array($count_result);
+            $total_count = $total['COUNT(*)'];
+
             $query  = 'SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.number, tbl_comics.description, tbl_comics.creators, tbl_comics.variation_text, tbl_publishers.publisher FROM tbl_inventory ';
             $query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
             $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
@@ -152,21 +165,30 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
             
             if (!isset($_GET['filter'])) {
               $query .= 'ORDER BY tbl_titles.title ASC ';
+              $query .= 'LIMIT '. $per_page;
+              $query .= ' OFFSET '. (($current_page - 1) * $per_page);
             } else {
               if ($_GET['filter']=='none') {
                 $query .= 'ORDER BY tbl_titles.title ASC ';
+                $query .= 'LIMIT '. $per_page;
+                $query .= ' OFFSET '. (($current_page - 1) * $per_page);
               }
               if ($_GET['filter']=='cgc') {
                 $query .= 'WHERE tbl_inventory.type_id="3"';
                 $query .= 'ORDER BY tbl_titles.title ASC ';
+                $query .= 'LIMIT '. $per_page;
+                $query .= ' OFFSET '. (($current_page - 1) * $per_page);
               }
               if ($_GET['filter']=='dollar') {
                 $query .= 'WHERE tbl_inventory.price=1.00';
                 $query .= 'ORDER BY tbl_titles.title ASC ';
+                $query .= 'LIMIT '. $per_page;
+                $query .= ' OFFSET '. (($current_page - 1) * $per_page);
               }
               if ($_GET['filter']=='new') {
                 $query .= 'ORDER BY tbl_inventory.date_added DESC ';
-                $query .= 'LIMIT 20';
+                $query .= 'LIMIT '. $per_page;
+                $query .= ' OFFSET '. (($current_page - 1) * $per_page);
               }                  
             }
             $result = mysqli_query($connection, $query);
@@ -275,6 +297,57 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
     </div><!-- End Row 2 -->
+    <div class="row text-center">
+      <?php
+      if (!isset($_GET['filter']) || ($_GET['filter']='none')){
+        $total_pages = ceil($total_count/$per_page);
+        $previous_page = $current_page - 1;
+        $next_page = $current_page + 1;
+        if($total_pages > 1) {
+          echo '<ul class="pagination">';
+          
+          if($previous_page >= 1) { 
+            echo '<li>';
+            echo '<a href="shop.php?page='.$previous_page.'" aria-label="Previous">';
+            echo '<span aria-hidden="true">&laquo;</span>';
+            echo '</a></li>'; 
+          }else{
+            echo '<li class="disabled">';
+            echo '<a href="#" aria-label="Previous">';
+            echo '<span aria-hidden="true">&laquo;</span>';
+            echo '</a></li>'; 
+          }
+
+          for($i=1; $i <= $total_pages; $i++) {
+            if($i == $current_page) {
+              echo '<li class="active">';
+              echo '<a href="shop.php?page='.$i.'">'.$i;
+              echo '</a></li>';
+            } else {
+              echo '<li>';
+              echo '<a href="shop.php?page='.$i.'">'.$i;
+              echo '</a></li>'; 
+            }
+          }
+
+          if($next_page<= $total_pages) { 
+            echo '<li>';
+            echo '<a href="shop.php?page='.$next_page.'" aria-label="Next">';
+            echo '<span aria-hidden="true">&raquo;</span>';
+            echo '</a></li>';  
+          }else{
+            echo '<li class="disabled">';
+            echo '<a href="#" aria-label="Next">';
+            echo '<span aria-hidden="true">&raquo;</span>';
+            echo '</a></li>'; 
+          }
+
+          echo '</ul>';
+          
+        }
+      }
+      ?>
+    </div>
     <footer class="row">
       <p class="col-md-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>
       <p class="col-md-2"><span class="bold">Site Links</span><br/>

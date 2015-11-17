@@ -106,4 +106,36 @@
 		}
 	}
 
+	function attempt_admin_login($username, $password) {
+		$user = find_user($username);
+		if ($user) {
+			// found user, now check password
+			if (password_check($password, $user["password"]) && ($user["user_type_id"]==2)) {
+				// password matches, and user type is admin
+				return $user;
+			} else {
+				// password does not match
+				return false;
+			}
+		} else {
+			// user not found
+			return false;
+		}
+	}
+	
+	function confirm_logged_in() {
+		if (!isset($_SESSION['username'])) {
+			redirect_to("login_form.php");
+		}
+	}	
+
+	function confirm_admin_logged_in() {
+		if (isset($_SESSION['user_type_id'])){
+			if (!($_SESSION['user_type_id'] == 2)) {
+				redirect_to("index.php");
+			}
+		}else{
+			redirect_to("index.php");
+		}
+	}	
 ?>

@@ -252,6 +252,9 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
           <div class="modal-body">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
             <img class="img-responsive center-block" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
+            <p class="text-center red"><?php if (isset($_SESSION['message'])) {
+              echo $_SESSION['message'];}?>
+            </p>
             <form id="loginForm" action="" method="POST">
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -354,5 +357,12 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
   <script src="js/bootstrap.min.js"></script>
   <script src="js/jquery.zrssfeed.min.js" type="text/javascript"></script>
   <script src="js/main.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    <?php if(isset($_POST['submit_login']) && $_SESSION['message']=='Username/password not found.') { ?> /* Checking that the login form has been submitted */
+    $(function() {                       
+        $('#loginModal').modal('show');     // Show the modal
+    });
+    <?php } ?>
+  </script>
 </body>
 </html>

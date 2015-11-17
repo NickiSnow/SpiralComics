@@ -1,3 +1,6 @@
+<?php
+  require_once('../login.php'); // Includes User Login Script
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -63,11 +66,11 @@
               </div>
               <div class="collapse navbar-collapse navbar-menu">
                   <ul class="nav navbar-nav navbar-left">
-                      <li><a href="orders.html">Order Report</a>
+                      <li><a href="orders.php">Order Report</a>
                       </li>
-                      <li><a href="inventoryReport.html">Inventory Report</a>
+                      <li><a href="inventoryReport.php">Inventory Report</a>
                       </li>
-                      <li><a href="addInventory.html">Add Inventory</a>
+                      <li><a href="addInventory.php">Add Inventory</a>
                       </li>
                   </ul>
               </div>
@@ -80,21 +83,24 @@
           <div class="row">
             <div class="col-md-12 form-group">
               <label for="username">Username</label>
-              <input type="text" class="form-control" id="username" name="username">
+              <input type="text" class="form-control" id="username" name="username" required>
             </div>
           </div>
           <div class="row">         
             <div class="col-md-12 form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" name="password">
+              <input type="password" class="form-control" id="password" name="password" required>
            </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <button type="submit" class="pull-right">Log In</button>
+              <button type="submit" name="submit_login_admin" class="pull-right">Log In</button>
             </div>
           </div>  
       </form>
+      <p class="text-center red"><?php if (isset($_SESSION['message'])) {
+        echo $_SESSION['message'];}?>
+      </p>
     </div><!-- End Row 1 -->
     <footer class="row">
       <p class="col-sm-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>

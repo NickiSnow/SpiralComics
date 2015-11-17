@@ -1,3 +1,7 @@
+<?php
+  require_once('../login.php'); //Includes User Login Script
+  confirm_admin_logged_in();
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -54,7 +58,14 @@
     <header>
       <div class="row">
         <img src="../images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
-        <div class="right pull-right">Hi, Username!</div>
+        <div class="right pull-right">
+          <?php
+            if(isset($_SESSION['username'])){
+                echo 'Hi, '.$_SESSION['username'].'!';
+                echo '&nbsp;&nbsp;&nbsp;<a href="../logout.php">Logout</a>';
+            }
+          ?>
+        </div>
       </div>
       <div id="admin-menu" class="navbar navbar-default " role="navigation">
           <div class="container-fluid">
@@ -64,11 +75,11 @@
               </div>
               <div class="collapse navbar-collapse navbar-menu">
                   <ul class="nav navbar-nav navbar-left">
-                      <li><a href="orders.html">Order Report</a>
+                      <li><a href="orders.php">Order Report</a>
                       </li>
-                      <li class="active"><a href="inventoryReport.html">Inventory Report</a>
+                      <li class="active"><a href="inventoryReport.php">Inventory Report</a>
                       </li>
-                      <li><a href="addInventory.html">Add Inventory</a>
+                      <li><a href="addInventory.php">Add Inventory</a>
                       </li>
                   </ul>
               </div>

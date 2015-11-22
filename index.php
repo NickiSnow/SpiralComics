@@ -131,7 +131,7 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
         <?php
           while($row = mysqli_fetch_array($new_result)) {
             echo '<div class="col-sm-4">';
-            echo '<a href="" class="open-ComicDetails" data-title="'.$row['title'].'" data-number="'.$row['number'].'" data-variation="'.$row['variation_text'].'" data-description="'.$row['description'].'" data-image="'.$row['picture_500'].'" data-creators="'.$row['creators'].'" data-price="'.$row['price'].'" data-condition="'.$row['grade'].'" data-toggle="modal" data-target="#comicModal">';
+            echo '<a href="" class="open-ComicDetails" data-toggle="modal" data-target="#comicModal" data-title="'.$row['title'].'" data-number="'.$row['number'].'" data-variation="'.$row['variation_text'].'" data-description="'.$row['description'].'" data-image="'.$row['picture_500'].'" data-creators="'.$row['creators'].'" data-price="'.$row['price'].'" data-condition="'.$row['grade'].'" data-quantity="'.$row['quantity'].'" data-inventory_id="'.$row['inventory_id'].'">';
             echo '<img class="img-responsive" src="images/comics/'.$row['picture_500'].'" alt="comic cover"></a>';
             echo '<p>'.$row['title'].' #'.$row['number'].' '.$row['variation_text'].'<br/>'.$row['publisher'].'<br/>'.$row['grade'].'<br/> Price: $'.$row['price'].'</p>';
             echo '</div>';
@@ -157,7 +157,7 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
                 $cgc_result = mysqli_fetch_array($cgc_result);
               ?>
               <?php
-                echo '<a href="" class="open-ComicDetails" data-title="'.$cgc_result['title'].'" data-number="'.$cgc_result['number'].'" data-variation="'.$cgc_result['variation_text'].'" data-description="'.$cgc_result['description'].'" data-image="'.$cgc_result['picture_500'].'" data-creators="'.$cgc_result['creators'].'" data-price="'.$cgc_result['price'].'" data-condition="CGC '.$cgc_result['grade_number'].'" data-toggle="modal" data-target="#comicModal">';
+                echo '<a href="" class="open-ComicDetails" data-toggle="modal" data-target="#comicModal" data-title="'.$cgc_result['title'].'" data-number="'.$cgc_result['number'].'" data-variation="'.$cgc_result['variation_text'].'" data-description="'.$cgc_result['description'].'" data-image="'.$cgc_result['picture_500'].'" data-creators="'.$cgc_result['creators'].'" data-price="'.$cgc_result['price'].'" data-condition="'.$cgc_result['grade'].'" data-quantity="'.$cgc_result['quantity'].'" data-inventory_id="'.$cgc_result['inventory_id'].'">';
                 echo '<img class="img-responsive" src="images/comics/'.$cgc_result['picture_500'].'" alt="CGC Comic cover"></a>';
                 echo '<p>'.$cgc_result['title'].' #'.$cgc_result['number'].' '.$cgc_result['variation_text'].'<br/> CGC '.$cgc_result['grade_number'].'<br/> Price: $'.$cgc_result['price'].'</p>'
               ?>
@@ -187,7 +187,7 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
         <?php
           while($row = mysqli_fetch_array($feature_result)) {
             echo '<div class="col-sm-4">';
-            echo '<a href="" class="open-ComicDetails" data-title="'.$row['title'].'" data-number="'.$row['number'].'" data-variation="'.$row['variation_text'].'" data-description="'.$row['description'].'" data-image="'.$row['picture_500'].'" data-creators="'.$row['creators'].'" data-price="'.$row['price'].'" data-condition="'.$row['grade'].'" data-toggle="modal" data-target="#comicModal">';
+            echo '<a href="" class="open-ComicDetails" data-toggle="modal" data-target="#comicModal" data-title="'.$row['title'].'" data-number="'.$row['number'].'" data-variation="'.$row['variation_text'].'" data-description="'.$row['description'].'" data-image="'.$row['picture_500'].'" data-creators="'.$row['creators'].'" data-price="'.$row['price'].'" data-condition="'.$row['grade'].'" data-quantity="'.$row['quantity'].'" data-inventory_id="'.$row['inventory_id'].'">';
             echo '<img class="img-responsive" src="images/comics/'.$row['picture_500'].'" alt="comic cover"></a>';
             echo '<p>'.$row['title'].' #'.$row['number'].' '.$row['variation_text'].'<br/>'.$row['publisher'].'<br/>'.$row['grade'].'<br/> Price: $'.$row['price'].'</p>';
             echo '</div>';
@@ -213,7 +213,7 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
                 $dollar_result = mysqli_fetch_array($dollar_result);
               ?>
               <?php
-                echo '<a href="" class="open-ComicDetails" data-title="'.$dollar_result['title'].'" data-number="'.$dollar_result['number'].'" data-variation="'.$dollar_result['variation_text'].'" data-description="'.$dollar_result['description'].'" data-image="'.$dollar_result['picture_500'].'" data-creators="'.$dollar_result['creators'].'" data-price="'.$dollar_result['price'].'" data-condition="'.$dollar_result['grade'].'" data-toggle="modal" data-target="#comicModal">';
+                echo '<a href="" class="open-ComicDetails" data-title="'.$dollar_result['title'].'" data-number="'.$dollar_result['number'].'" data-variation="'.$dollar_result['variation_text'].'" data-description="'.$dollar_result['description'].'" data-image="'.$dollar_result['picture_500'].'" data-creators="'.$dollar_result['creators'].'" data-price="'.$dollar_result['price'].'" data-condition="'.$dollar_result['grade'].'" data-quantity="'.$dollar_result['quantity'].'" data-inventory_id="'.$dollar_result['inventory_id'].'" data-toggle="modal" data-target="#comicModal">';
                 echo '<img class="img-responsive" src="images/comics/'.$dollar_result['picture_500'].'" alt="Dollar Deal Comic cover"></a>';
                 echo '<p>'.$dollar_result['title'].' #'.$dollar_result['number'].' '.$dollar_result['variation_text'].'<br/>'.$dollar_result['publisher'].'<br/>'.$dollar_result['grade'].'<br/> Price: $'.$dollar_result['price'].'</p>'
               ?>
@@ -326,7 +326,11 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
                   <h3>Condition</h3>
                   <p id="condition"></p>
                   <h3>Price $<span id="price"></span></h3>
-                  <button class="pull-right">Add To Cart</button>
+                  <form class="pull-right" action="add_cart.php" method="POST">
+                    Qty:&nbsp;<input id="quantity" type="number" name="quantity" min="1" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" name="submit_add">Add To Cart</button><br/>
+                    Available (<span id="quantityAvailable"></span>)
+                    <input class="hidden" type="number" name="id" id="inventory_id">
+                  </form>
                 </div>
               </div>
             </div><!-- /.modal-body -->

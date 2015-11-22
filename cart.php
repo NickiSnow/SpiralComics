@@ -116,33 +116,39 @@ require_once('register.php');// Includes User Registration Script
                 <th class="text-right">Sub-Total</th>
                 <th class="text-center">Remove</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>Comic book title # -- Condition</td>
-                 
-                <td class="text-right">&#36;4.99</td>
-                <td class="text-right">&#36;4.99</td>
-                <td class="text-center"><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Comic book title # -- Condition</td>
-                <td class="text-right">&#36;3.99</td>
-                <td class="text-right">&#36;3.99</td>
-                <td class="text-center"><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
-            </tr>
+            
+            <?php
+              $total = 0;
+              $qty_total = 0;
+              foreach ($_SESSION['cart'] as $key => $cart) {
+                foreach ($cart as $key => $items){
+                  echo '<tr>';
+                  echo '<td>'.$items['quantity'].'</td>';
+                    $qty_total += $items['quantity'];
+                  echo '<td>'.$items['title'].' #'.$items['number'].' '.$items['variation_text'].' -- '.$items['grade'].'</td>';
+                  echo '<td class="text-right">&#36;'.number_format($items['price'], 2).'</td>';
+                  echo '<td class="text-right">&#36;';
+                    $subtotal = $items['price']*$items['quantity'];
+                  echo  number_format($subtotal, 2).'</td>'; 
+                    $total += $subtotal;
+                  echo '<td class="text-center"><a href="remove_item.php?id='.$items['inventory_id'].'"><span class="glyphicon glyphicon-remove"></span></a></td>';
+                  echo '</tr>';
+                }
+              }  
+            ?>
             <tr>
                 <td></td>
                 <td></td>
                 <td class="text-right"><strong>Shipping</strong></td>
-                <td class="text-right">&#36;5.50</td>
+                <?php $shipping = 5+0.5*($qty_total-1);?>
+                <td class="text-right">&#36;<?php echo number_format($shipping,2); ?></td>
                 <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td></td>
                 <td class="text-right"><strong>Total</strong></td>
-                <td class="text-right">&#36;14.48</td>
+                <td class="text-right">&#36;<?php $total = $total+$shipping; echo number_format($total, 2); ?></td>
                 <td></td>
             </tr>
         </table>

@@ -1,6 +1,8 @@
 <?php
 require_once('login.php'); // Includes User Login Script
 confirm_logged_in();
+require_once('add_address.php'); // Includes Script to add address to database
+require_once('includes/db_connection.php');// Includes Database Connection Script
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
@@ -111,79 +113,42 @@ confirm_logged_in();
             <form id="addressForm" action="" method="POST">
                 <div class="form-group">
                     <label for="fName">Name</label>
-                    <input type="text" class="form-control" id="fName" name="fName" value="<?php echo ($_SESSION['fName']);?>">
-                    <input type="text" class="form-control" id="lname" name="lName" value="<?php echo ($_SESSION['lName']);?>">
+                    <input type="text" class="form-control" id="fName" name="fName" value="<?php echo ($_SESSION['fName']);?>" required>
+                    <input type="text" class="form-control" id="lname" name="lName" value="<?php echo ($_SESSION['lName']);?>" required>
                 </div>         
                 <div class="form-group">
                     <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" name="address">
-                    <input type="text" class="form-control" id="address2" name="address2">
+                    <input type="text" class="form-control" id="address" name="address" value="<?php echo ($_SESSION['address1']);?>" required>
+                    <input type="text" class="form-control" id="address2" name="address2" value="<?php echo ($_SESSION['address2']);?>">
                 </div>
                 <div class="form-group">
                     <label for="city">City</label>
-                    <input type="text" class="form-control" id="city" name="city">
+                    <input type="text" class="form-control" id="city" name="city" value="<?php echo ($_SESSION['city']);?>" required>
                 </div>
                 <div class="form-group">
                     <label for="state">State</label>
                     <select id="state" name="state" class="form-control">
-                        <option value="AL">Alabama</option>
-                        <option value="AK">Alaska</option>
-                        <option value="AZ">Arizona</option>
-                        <option value="AR">Arkansas</option>
-                        <option value="CA">California</option>
-                        <option value="CO">Colorado</option>
-                        <option value="CT">Connecticut</option>
-                        <option value="DE">Delaware</option>
-                        <option value="DC">District Of Columbia</option>
-                        <option value="FL">Florida</option>
-                        <option value="GA">Georgia</option>
-                        <option value="HI">Hawaii</option>
-                        <option value="ID">Idaho</option>
-                        <option value="IL">Illinois</option>
-                        <option value="IN">Indiana</option>
-                        <option value="IA">Iowa</option>
-                        <option value="KS">Kansas</option>
-                        <option value="KY">Kentucky</option>
-                        <option value="LA">Louisiana</option>
-                        <option value="ME">Maine</option>
-                        <option value="MD">Maryland</option>
-                        <option value="MA">Massachusetts</option>
-                        <option value="MI">Michigan</option>
-                        <option value="MN">Minnesota</option>
-                        <option value="MS">Mississippi</option>
-                        <option value="MO">Missouri</option>
-                        <option value="MT">Montana</option>
-                        <option value="NE">Nebraska</option>
-                        <option value="NV">Nevada</option>
-                        <option value="NH">New Hampshire</option>
-                        <option value="NJ">New Jersey</option>
-                        <option value="NM">New Mexico</option>
-                        <option value="NY">New York</option>
-                        <option value="NC">North Carolina</option>
-                        <option value="ND">North Dakota</option>
-                        <option value="OH">Ohio</option>
-                        <option value="OK">Oklahoma</option>
-                        <option value="OR">Oregon</option>
-                        <option value="PA">Pennsylvania</option>
-                        <option value="RI">Rhode Island</option>
-                        <option value="SC">South Carolina</option>
-                        <option value="SD">South Dakota</option>
-                        <option value="TN">Tennessee</option>
-                        <option value="TX">Texas</option>
-                        <option value="UT">Utah</option>
-                        <option value="VT">Vermont</option>
-                        <option value="VA">Virginia</option>
-                        <option value="WA">Washington</option>
-                        <option value="WV">West Virginia</option>
-                        <option value="WI">Wisconsin</option>
-                        <option value="WY">Wyoming</option>
+                        <?php 
+                            //get state data
+                            $query  = 'SELECT * FROM tbl_states';
+                            $result = mysqli_query($connection, $query);
+                            confirm_query($result);
+                            //populate the state options
+                            while($row = mysqli_fetch_array($result)) {
+                                echo '<option value="'.$row['state'].'" ';
+                                if($_SESSION['state'] == $row['state']){ 
+                                    echo 'selected="selected"'; 
+                                }
+                                echo '>'.$row['stateName'].'</option>'; 
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="zip">Zipcode</label>
-                    <input type="text" class="form-control" id="zip" name="zip">
+                    <input type="text" class="form-control" id="zip" name="zip" value="<?php echo ($_SESSION['zip']);?>">
                 </div>
-                <a class="button" href="checkout.php">Continue</a>
+                <button type="submit" name="submit_address">Continue</button>
             </form>
         </div>
     </div>    

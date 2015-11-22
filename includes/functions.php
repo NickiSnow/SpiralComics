@@ -137,5 +137,24 @@
 		}else{
 			redirect_to("index.php");
 		}
-	}	
+	}
+
+	function find_inventory($id) {
+		global $connection;
+		
+		$safe_id = mysqli_real_escape_string($connection, $id);
+		
+		$query  = 'SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.number, tbl_comics.variation_text FROM tbl_inventory ';
+        $query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
+        $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
+        $query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
+		$query .= "WHERE inventory_id = '{$safe_id}' ";
+		$item_set = mysqli_query($connection, $query);
+		confirm_query($item_set);
+		if($item = mysqli_fetch_assoc($item_set)) {
+			return $item;
+		} else {
+			return null;
+		}
+	}
 ?>

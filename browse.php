@@ -98,7 +98,7 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
               <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search. . ." name="search">
                 <div class="input-group-btn">
-                    <button class="btn btn-default searchBtn" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                  <button class="btn btn-default searchBtn" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                 </div>
               </div>
             </form>

@@ -137,15 +137,15 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
           <?php
             while($row = mysqli_fetch_array($result)) {
               echo '<tr>';
-              echo '<td><a href="" class="open-ComicDetails" data-toggle="modal" data-target="#comicModal" data-title="'.$row['title'].'" data-number="'.$row['number'].'" data-variation="'.$row['variation_text'].'" data-description="'.$row['description'].'" data-image="'.$row['picture_500'].'" data-creators="'.$row['creators'].'" data-price="'.$row['price'].'" data-condition="'.$row['grade'].'">';
+              echo '<td><a href="" class="open-ComicDetails" data-toggle="modal" data-target="#comicModal" data-title="'.$row['title'].'" data-number="'.$row['number'].'" data-variation="'.$row['variation_text'].'" data-description="'.$row['description'].'" data-image="'.$row['picture_500'].'" data-creators="'.$row['creators'].'" data-price="'.$row['price'].'" data-condition="'.$row['grade'].'" data-quantity="'.$row['quantity'].'" data-inventory_id="'.$row['inventory_id'].'">';
               echo '<img class="img-responsive thumb" src="images/comics/'.$row['picture_500'].'" alt="Comic Book Cover"></a></td>';
               echo '<td class="narrow">'.$row['title'].' '.$row['variation_text'].'</td>';
               echo '<td>'.' #'.$row['number'].'</td>';
               echo '<td>'.$row['grade'].'</td>';
               echo '<td>'.$row['price'].'</td>';
-              echo '<td><form>Qty:&nbsp;<input type="number" name="quantity" min="1" max="5"><br/>';
-              echo 'Available ('.$row['quantity'].')</form></td>';
-              echo '<td><button>Add To Cart</button></td>';
+              echo '<td><form action="add_cart.php" method="POST">Qty:&nbsp;<input type="number" name="quantity" min="1" max="'.$row['quantity'].'" required><br/>';
+              echo 'Available ('.$row['quantity'].')</td>';
+              echo '<td><input class="hidden" type="number" name="id" value="'.$row['inventory_id'].'"><button type="submit" name="submit_add">Add To Cart</button></form></td>';
               echo '</tr>';
             }
           ?>
@@ -230,7 +230,11 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
                   <h3>Condition</h3>
                   <p id="condition"></p>
                   <h3>Price $<span id="price"></span></h3>
-                  <button class="pull-right">Add To Cart</button>
+                  <form class="pull-right" action="add_cart.php" method="POST">
+                    Qty:&nbsp;<input id="quantity" type="number" name="quantity" min="1" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" name="submit_add">Add To Cart</button><br/>
+                    Available (<span id="quantityAvailable"></span>)
+                    <input class="hidden" type="number" name="id" id="inventory_id">
+                  </form>
                 </div>
               </div>
             </div><!-- /.modal-body -->

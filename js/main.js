@@ -32,6 +32,8 @@
       var selectedComicCond = $(this).data('condition') + '<br/>';
       var selectedComicPrice = $(this).data('price');
       var selectedComicVariation = $(this).data('variation');
+      var selectedComicQuantity = $(this).data('quantity');
+      var selectedComicId = $(this).data('inventory_id');
 
       $("#title").html(selectedComicTitle + ' #' + selectedComicNumber + ' ' + selectedComicVariation);
       $("#description").html(selectedComicDesc);
@@ -40,6 +42,9 @@
       $("#creators").html(selectedComicCreators);
       $("#condition").html(selectedComicCond);
       $("#price").html(selectedComicPrice);
+      $("#quantityAvailable").html(selectedComicQuantity);
+      $("#quantity").attr('max', selectedComicQuantity);
+      $("#inventory_id").attr('value', selectedComicId);
   });
 
   /*---------------- Update Titles with Checkbox ------------------*/

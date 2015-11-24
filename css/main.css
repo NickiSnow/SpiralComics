@@ -315,6 +315,23 @@ a#add{
 td.narrow {
 	max-width: 200px;
 }
+td.narrower {
+	max-width: 120px;
+}
+.inventory_btn {
+	border: 0;
+	background: none;
+	width: 20px;
+	padding: 0;
+	margin: 0;
+}
+.inventory_btn:hover {
+	border: 0;
+	background: none;
+	width: 20px;
+	padding: 0;
+	margin: 0;
+}
 /* ----- Change screen width that navbar will collapse ----- */
 @media (max-width: 1000px) {
 	.navbar-right {

@@ -1,6 +1,7 @@
 <?php
   require_once('../login.php'); //Includes User Login Script
-  confirm_admin_logged_in();
+  confirm_admin_logged_in(); //User must be logged in and admin
+  require_once('includes/db_connection.php');// Includes Database Connection Script
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
@@ -90,7 +91,41 @@
       <h1 id="admin">Administration</h1>
       <div class="table-responsive">
         <form id="orders" action="" method="POST">
-          <table class="table table-striped table-bordered">
+          <table class="table table-striped table-bordered">      
+      <?php 
+        $query  = 'SELECT * FROM tbl_orders ';
+        $query .= 'WHERE shipped=0';      
+        $order_result = mysqli_query($connection, $query);
+        confirm_query($order_result);
+
+        while($order = mysqli_fetch_array($order_result)) {
+          echo '<tr>';
+          echo '<td><strong>Order Date</strong><br/>'.$order['order_date'].'</td>';
+
+          $item_query = 'SELECT tbl_orders.*, tbl_order_line_items.inventory_id, tbl_order_line_items.item_quantity FROM tbl_orders ';
+          $item_query .= 'JOIN tbl_order_line_items ON tbl_orders.order_id=tbl_order_line_items.order_id ';
+          $item_query .= 'WHERE tbl_orders.order_id='.$order['order_id'];
+          $item_result = mysqli_query($connection, $item_query);
+          confirm_query($item_result);
+          
+          //Create empty string variables
+          $price_string = '';
+          $quantity_string = '';
+          $grade_string = '';
+          $title_string = '';
+          $address_string = '';
+
+          while($item = mysqli_fetch_array($item_result)) {
+            $price_string .= '<br/>$'.$item['price'];
+            $quantity_string .= '<br/>'.$item['quantity'];
+            $grade_string .= '<br/>'.$item['grade'];
+            $title_string .= '<br/>'.$item['title'].' ('.$item['series'].') #'.$item['number'];
+          }
+
+          $address_string .= '<br/>'.$order['first_name'].' '.$order['last_name']
+        }
+      ?>
+
             <tr>
               <td><strong>Order Date</strong><br/>Sept 24, 2015</td>
               <td><strong>Price</strong><br/>$4.99<br/>$3.99</td>

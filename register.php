@@ -19,6 +19,7 @@ if (isset($_POST['submit_register'])) {
 	$query .= "  '{$username}', '{$hashed_password}', '{$email}', '{$fName}', '{$lName}'";
 	$query .= ")";
 	$result = mysqli_query($connection, $query);
+	confirm_query($result);
 
 	if ($result) {
 		// Success

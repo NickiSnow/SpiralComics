@@ -153,7 +153,7 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
                 $query .= 'ORDER BY RAND() ';      
                 $query .= 'LIMIT 1';
                 $cgc_result = mysqli_query($connection, $query);
-                confirm_query($new_result);
+                confirm_query($cgc_result);
                 $cgc_result = mysqli_fetch_array($cgc_result);
               ?>
               <?php

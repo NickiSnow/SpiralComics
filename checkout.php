@@ -148,28 +148,36 @@ confirm_logged_in();
                 <td class="text-right">&#36;<?php $total = $total+$shipping; echo number_format($total, 2); ?></td>
 		          </tr>
 		      </table>
+          <?php $_SESSION['Payment_Amount']=$total; ?>
 		   </div>
 		   <div class="col-lg-4 col-md-5 col-sm-6 checkout">
 		        <h3>Enter Payment Information</h3>
 		        <p>Mastercard, Visa, American Express Accepted</p>
-		      <form action="" method="POST" id="payment-form" class="form-inline">
-		        	<span class="payment-errors"></span>
+		      <form action="charge.php" method="POST" id="payment-form" class="form-inline">
+		        	<span class="payment-errors red">
+              <?php 
+                if (isset($_SESSION['stripe_error'])){
+                  echo $_SESSION['stripe_error'];
+                  echo '&nbsp;Please try again.<br/>';
+                }
+              ?>   
+              </span>
 		        	<div class="form-group">
 		          	 <label for="number">Card Number</label>
-		              <input type="text" size="20" name="number" id="number" data-stripe="number" class="card-number form-control"/>
+		              <input type="text" size="20" id="number" data-stripe="number" class="card-number form-control"/>
 		        	</div>
 		        	<div class="form-group">
 	          	  <label for="cvc">CVC</label>
-	              <input type="text" size="4" name="cvc" id="cvc" data-stripe="cvc" class="card-cvc form-control"/>
+	              <input type="text" size="4" id="cvc" data-stripe="cvc" class="card-cvc form-control"/>
 	          	  <a href="#">&nbsp;&nbsp; <span class="glyphicon glyphicon-question-sign"></span> What is CVC?</a> 
 		        	</div>
 		        	<div class="form-group">
 	          	  <label for="date">Expiration (MM/YYYY)</label>
-	              <input type="text" size="2" name="date" id="date" data-stripe="exp-month" class="card-expiry-month form-control"/>
+	              <input type="text" size="2" id="date" data-stripe="exp-month" class="card-expiry-month form-control"/>
 	          	  <span> / </span>
-	          	  <input type="text" size="4" name="year" id="year" data-stripe="exp-year" class="card-expiry-year form-control"/>
+	          	  <input type="text" size="4" id="year" data-stripe="exp-year" class="card-expiry-year form-control"/>
 		        	</div>
-		        	<a class="button" href="thanks.php">Submit</a>
+		        	<button type="submit">Submit</button>
 		      </form>
 		   </div>
     </div><!--End Row 1-->    
@@ -193,7 +201,37 @@ confirm_logged_in();
   </div> <!-- End Container -->
   <!-- Javascript
     ================================================== --> 
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    // Identify this website in the createToken call below
+    Stripe.setPublishableKey('pk_test_nEotTvot1nLDTv7bTBm5nI1N');
+    var stripeResponseHandler = function(status, response) {
+      var $form = $('#payment-form');
+      if (response.error) {
+        // Show the errors on the form
+        $form.find('.payment-errors').text(response.error.message);
+        $form.find('button').prop('disabled', false);
+      } else {
+        // token contains id, last4, and card type
+        var token = response.id;
+        // Insert the token into the form so it gets submitted to the server
+        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+        // and re-submit
+        $form.get(0).submit();
+      }
+    };
+    jQuery(function($) {
+      $('#payment-form').submit(function(e) {
+        var $form = $(this);
+        // Disable the submit button to prevent repeated clicks
+        $form.find('button').prop('disabled', true);
+        Stripe.card.createToken($form, stripeResponseHandler);
+        // Prevent the form from submitting with the default action
+        return false;
+      });
+    });
+  </script>
 </body>
 </html>

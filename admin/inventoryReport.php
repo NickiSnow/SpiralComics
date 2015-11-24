@@ -100,106 +100,29 @@
             <th>Qty</th>
             <th>Price</th>
           </tr>
-          <tr>
-            <td>MAR060309</td>
-            <td>2006</td>
-            <td>52</td>
-            <td class="text-center">1</td>
-            <td></td>
-            <td>NM/Unread</td>
-            <td colspan="2">
-              <form class="form-inline inventory" action="" method="POST">
-                <div class="form-group">
-                  <label for="qty1">
-                    <span>Qty</span>
-                    <input type="text" size="4" name="qty1" id="qty1" class="form-control" value="4" />
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label for="price1">
-                    <span>Price</span>
-                    <input type="text" size="7" name="price1" id="price1" class="form-control" value="$2.49"/>
-                  </label>
-                </div>
-                <a href="#"><img src="../images/refresh_icon.gif" /></a>  
-              </form>                              
-            </td>
-          </tr>
-          <tr>
-            <td>MAR060309</td>
-            <td>2006</td>
-            <td>52 AFTERMATH: THE FOUR HORSEMEN</td>
-            <td class="text-center">1</td>
-            <td></td>
-            <td>NM/Unread</td>
-            <td colspan="2">
-              <form class="form-inline inventory" action="" method="POST">
-                <div class="form-group">
-                  <label for="qty1">
-                    <span>Qty</span>
-                    <input type="text" size="4" name="qty1" id="qty1" class="form-control" value="4" />
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label for="price1">
-                    <span>Price</span>
-                    <input type="text" size="7" name="price1" id="price1" class="form-control" value="$2.49"/>
-                  </label>
-                </div>
-                <a href="#"><img src="../images/refresh_icon.gif" /></a>  
-              </form>                              
-            </td>
-          </tr>
-          <tr>
-            <td>MAR060309</td>
-            <td>2006</td>
-            <td>52</td>
-            <td class="text-center">1</td>
-            <td></td>
-            <td>NM/Unread</td>
-            <td colspan="2">
-              <form class="form-inline inventory" action="" method="POST">
-                <div class="form-group">
-                  <label for="qty1">
-                    <span>Qty</span>
-                    <input type="text" size="4" name="qty1" id="qty1" class="form-control" value="4" />
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label for="price1">
-                    <span>Price</span>
-                    <input type="text" size="7" name="price1" id="price1" class="form-control" value="$2.49"/>
-                  </label>
-                </div>
-                <a href="#"><img src="../images/refresh_icon.gif" /></a>  
-              </form>                              
-            </td>
-          </tr>
-          <tr>
-            <td>MAR060309</td>
-            <td>2006</td>
-            <td>52</td>
-            <td class="text-center">1</td>
-            <td></td>
-            <td>NM/Unread</td>
-            <td colspan="2">
-              <form class="form-inline inventory" action="" method="POST">
-                <div class="form-group">
-                  <label for="qty1">
-                    <span>Qty</span>
-                    <input type="text" size="4" name="qty1" id="qty1" class="form-control" value="4" />
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label for="price1">
-                    <span>Price</span>
-                    <input type="text" size="7" name="price1" id="price1" class="form-control" value="$2.49"/>
-                  </label>
-                </div>
-                <a href="#"><img src="../images/refresh_icon.gif" /></a>  
-              </form>                              
-            </td>
-          </tr>
+          <?php
+            $query  = 'SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.comic_id, tbl_comics.number, tbl_comics.description, tbl_comics.creators, tbl_comics.variation_text, tbl_series.series FROM tbl_inventory ';
+            $query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
+            $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
+            $query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
+            $query .= 'ORDER BY tbl_titles.title ASC ';
+            $result = mysqli_query($connection, $query);
+            confirm_query($result);
+            while($row = mysqli_fetch_array($result)) {
+              echo '<tr>';
+              echo '<td>'.$row['comic_id'].'</td>';
+              echo '<td>'.$row['series'].'</td>';
+              echo '<td class="narrow">'.$row['title'].'</td>';
+              echo '<td class="text-center">'.$row['number'].'</td>';
+              echo '<td class="narrower">'.$row['variation_text'].'</td>';
+              echo '<td>'.$row['grade'].'</td>';
+              echo '<td colspan="2"><form class="form-inline inventory" action="" method="POST"><div class="form-group"><label for="'.$row['inventory_id'].'"><span>Qty</span>';
+              echo '<input type="text" size="3" name="'.$row['inventory_id'].'" id="'.$row['inventory_id'].'" class="form-control" value="'.$row['quantity'].'" /></label></div>';
+              echo '<div class="form-group"><label for="price'.$row['inventory_id'].'"><span>Price</span><input type="text" size="6" name="price'.$row['inventory_id'].'" id="price'.$row['inventory_id'].'" class="form-control" value="'.$row['price'].'"/></label></div>';
+              echo '<button class="inventory_btn" type="submit" name="submit_inventory"><img src="../images/refresh_icon.gif" /></button></form></td>';
+              echo '</tr>';
+            }
+          ?>
         </table>
       </div>
     </div><!-- End Row 1 -->

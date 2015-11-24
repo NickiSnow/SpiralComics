@@ -16,6 +16,7 @@
 
       if ($found_item) {
         // Success
+        $found_item['quantity']=$quantity;
         $_SESSION['cart']['cart'.$id]=array(); // Declaring session array
         array_push($_SESSION['cart']['cart'.$id],  $found_item);
         redirect_to('shop.php');

@@ -21,6 +21,7 @@ if (isset($_POST['submit_login'])) {
       // Mark user as logged in
       $_SESSION["user_id"] = $found_user["user_id"];
       $_SESSION["username"] = $found_user["username"];
+      $_SESSION["email"] = $found_user["email"];
       $_SESSION["fName"] = $found_user["first_name"];
       $_SESSION["lName"] = $found_user["last_name"];
       $_SESSION["user_type_id"] = $found_user["user_type_id"];

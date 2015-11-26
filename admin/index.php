@@ -70,7 +70,7 @@
                       </li>
                       <li><a href="inventoryReport.php">Inventory Report</a>
                       </li>
-                      <li><a href="addInventory.php">Add Inventory</a>
+                      <li><a href="add_inventory_form.php">Add Inventory</a>
                       </li>
                   </ul>
               </div>

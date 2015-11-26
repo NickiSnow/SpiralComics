@@ -21,7 +21,8 @@ if (isset($_POST['submit_address'])) {
 	$query .= "zip='{$zip}' ";
 	$query .= "WHERE user_id=".$_SESSION['user_id'];
 	$result = mysqli_query($connection, $query);
-
+	confirm_query($result);
+	
 	if ($result) {
 		// Success
 		$_SESSION["message"] = "User created.";

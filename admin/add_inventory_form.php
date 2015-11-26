@@ -1,6 +1,7 @@
 <?php
   require_once('../login.php'); //Includes User Login Script
   confirm_admin_logged_in();
+  require_once('../includes/db_connection.php');// Includes Database Connection Script  
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
@@ -79,7 +80,7 @@
                       </li>
                       <li><a href="inventoryReport.php">Inventory Report</a>
                       </li>
-                      <li class="active"><a href="addInventory.php">Add Inventory</a>
+                      <li class="active"><a href="add_inventory_form.php">Add Inventory</a>
                       </li>
                   </ul>
               </div>
@@ -88,64 +89,58 @@
     </header>
     <div class="row">
       <h1 id="admin">Administration</h1>
-      <form id="addInv" action="" method="POST">
+      <form id="addInv" action="add_inventory.php" method="POST">
         <div class="row">
-          <div class="form-group col-md-3">
-              <label for="comicId">ComicId</label>
-              <input type="text" class="form-control" id="comicId" name="comicId">
+          <div class="form-group col-md-4">
+              <label for="inventory_id">InventoryId</label>
+              <input type="text" class="form-control" id="inventory_id" name="inventory_id">
           </div>         
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-2">
               <label for="qty">Quantity</label>
               <input type="text" class="form-control" id="qty" name="qty">
+          </div>
+          <div class="form-group col-md-3">
+              <label for="cost">Cost</label>
+              <input type="text" class="form-control" id="cost" name="cost">
           </div>
           <div class="form-group col-md-3">
               <label for="price">Price</label>
               <input type="text" class="form-control" id="price" name="price">
           </div>
+        </div> 
+        <div class="row">
           <div class="form-group col-md-3">
-              <label for="series">Series</label>
-              <input type="text" class="form-control" id="series" name="series">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-10">
-              <label for="title">Title</label>
-              <input type="text" class="form-control" id="title" name="title">
+              <label for="grade">Grade</label>
+              <input type="text" class="form-control" id="grade" name="grade">
           </div>         
-          <div class="form-group col-md-2">
-              <label for="number">Number</label>
-              <input type="text" class="form-control" id="number" name="number">
-          </div>
-        </div>  
-        <div class="row">
-          <div class="form-group col-md-6">
-              <label for="variation">Variation</label>
-              <input type="text" class="form-control" id="variation" name="variation">
-          </div>         
-          <div class="form-group col-md-6">
-              <label for="condition">Condition</label>
-              <input type="text" class="form-control" id="condition" name="condition">
-          </div>
-        </div>  
-        <div class="row">
-          <div class="form-group col-md-12">
-              <label for="creators">Creators</label>
-              <textarea class="form-control" rows="2" id="creators" name="creators"></textarea>
-          </div>         
-        </div>
-        <div class="row">
-          <div class="form-group col-md-12">
-              <label for="description">Description</label>
-              <textarea class="form-control" rows="3" id="description" name="description"></textarea>
-          </div>         
-        </div>
-        <div class="row">
           <div class="form-group col-md-9">
+              <label for="grade_description">Grade Description</label>
+              <input type="text" class="form-control" id="grade_description" name="grade_description">
+          </div>
+        </div>  
+        <div class="row">
+          <div class="form-group col-md-6">
             <label for="cover">Upload Cover Image</label>
             <input type="file" class="form-control" id="cover" name="cover">
           </div>
+          <div class="form-group col-md-3">
+            <label for="comic_type">Type</label>
+            <select class="form-control filterSelect" id="comic_type" name="comic_type">
+              <?php 
+                //get state data
+                $query  = 'SELECT * FROM tbl_comic_types';
+                $result = mysqli_query($connection, $query);
+                confirm_query($result);
+                //populate the state options
+                while($row = mysqli_fetch_array($result)) {
+                    echo '<option value="'.$row['type_id'].'" ';
+                    echo '>'.$row['type'].'</option>'; 
+                }
+              ?>
+            </select>
+          </div>         
           <div class="col-md-3">                   
-            <a id="add" class="button pull-right">Add Comic</a>
+            <button type="submit" id="add" class="pull-right">Add Comic</button>
           </div> 
         </div>
       </form>

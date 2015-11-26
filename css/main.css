@@ -290,8 +290,9 @@ form#addInv, form#adminLogin {
 form#adminLogin {
 	width: 45%;
 }
-a#add{
+button#add{
 	margin-top: 25px;
+	margin-right: 2px;
 }
 /* ---------table styles--------- */
 .table>tbody>tr>th {
@@ -317,6 +318,12 @@ td.narrow {
 }
 td.narrower {
 	max-width: 120px;
+}
+td.narrowest {
+	max-width: 90px;
+}
+td.medium {
+	max-width: 320px;
 }
 .inventory_btn {
 	border: 0;

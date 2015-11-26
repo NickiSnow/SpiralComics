@@ -79,7 +79,7 @@
                       </li>
                       <li class="active"><a href="inventoryReport.php">Inventory Report</a>
                       </li>
-                      <li><a href="addInventory.php">Add Inventory</a>
+                      <li><a href="add_inventory_form.php">Add Inventory</a>
                       </li>
                   </ul>
               </div>
@@ -116,10 +116,10 @@
               echo '<td class="text-center">'.$row['number'].'</td>';
               echo '<td class="narrower">'.$row['variation_text'].'</td>';
               echo '<td>'.$row['grade'].'</td>';
-              echo '<td colspan="2"><form class="form-inline inventory" action="" method="POST"><div class="form-group"><label for="'.$row['inventory_id'].'"><span>Qty</span>';
-              echo '<input type="text" size="3" name="'.$row['inventory_id'].'" id="'.$row['inventory_id'].'" class="form-control" value="'.$row['quantity'].'" /></label></div>';
-              echo '<div class="form-group"><label for="price'.$row['inventory_id'].'"><span>Price</span><input type="text" size="6" name="price'.$row['inventory_id'].'" id="price'.$row['inventory_id'].'" class="form-control" value="'.$row['price'].'"/></label></div>';
-              echo '<button class="inventory_btn" type="submit" name="submit_inventory"><img src="../images/refresh_icon.gif" /></button></form></td>';
+              echo '<td colspan="2"><form class="form-inline inventory" action="update_inventory.php" method="POST"><div class="form-group"><label for="quantity"><span>Qty</span>';
+              echo '<input type="text" size="3" name="quantity" class="form-control" value="'.$row['quantity'].'" /></label></div>';
+              echo '<div class="form-group"><label for="price"><span>Price</span><input type="text" size="6" name="price" class="form-control" value="'.$row['price'].'"/></label></div>';
+              echo '<input type="text" class="hidden" name="id" value="'.$row['inventory_id'].'" /><button class="inventory_btn" type="submit"><img src="../images/refresh_icon.gif" /></button></form></td>';
               echo '</tr>';
             }
           ?>

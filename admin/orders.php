@@ -1,7 +1,7 @@
 <?php
   require_once('../login.php'); //Includes User Login Script
   confirm_admin_logged_in(); //User must be logged in and admin
-  require_once('includes/db_connection.php');// Includes Database Connection Script
+  require_once('../includes/db_connection.php');// Includes Database Connection Script
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
@@ -80,7 +80,7 @@
                       </li>
                       <li><a href="inventoryReport.php">Inventory Report</a>
                       </li>
-                      <li><a href="addInventory.php">Add Inventory</a>
+                      <li><a href="add_inventory_form.php">Add Inventory</a>
                       </li>
                   </ul>
               </div>
@@ -90,94 +90,61 @@
     <div class="row">
       <h1 id="admin">Administration</h1>
       <div class="table-responsive">
-        <form id="orders" action="" method="POST">
+        <form id="orders" action="update_orders.php" method="POST">
           <table class="table table-striped table-bordered">      
-      <?php 
-        $query  = 'SELECT * FROM tbl_orders ';
-        $query .= 'WHERE shipped=0';      
-        $order_result = mysqli_query($connection, $query);
-        confirm_query($order_result);
-
-        while($order = mysqli_fetch_array($order_result)) {
-          echo '<tr>';
-          echo '<td><strong>Order Date</strong><br/>'.$order['order_date'].'</td>';
-
-          $item_query = 'SELECT tbl_orders.*, tbl_order_line_items.inventory_id, tbl_order_line_items.item_quantity FROM tbl_orders ';
-          $item_query .= 'JOIN tbl_order_line_items ON tbl_orders.order_id=tbl_order_line_items.order_id ';
-          $item_query .= 'WHERE tbl_orders.order_id='.$order['order_id'];
-          $item_result = mysqli_query($connection, $item_query);
-          confirm_query($item_result);
-          
-          //Create empty string variables
-          $price_string = '';
-          $quantity_string = '';
-          $grade_string = '';
-          $title_string = '';
-          $address_string = '';
-
-          while($item = mysqli_fetch_array($item_result)) {
-            $price_string .= '<br/>$'.$item['price'];
-            $quantity_string .= '<br/>'.$item['quantity'];
-            $grade_string .= '<br/>'.$item['grade'];
-            $title_string .= '<br/>'.$item['title'].' ('.$item['series'].') #'.$item['number'];
-          }
-
-          $address_string .= '<br/>'.$order['first_name'].' '.$order['last_name']
-        }
-      ?>
-
-            <tr>
-              <td><strong>Order Date</strong><br/>Sept 24, 2015</td>
-              <td><strong>Price</strong><br/>$4.99<br/>$3.99</td>
-              <td class="text-center"><strong>Qty</strong><br/>1<br/>1</td>
-              <td><strong>Condition</strong><br/>VF+<br/>NM</td>
-              <td><strong>Comic Book Title #</strong><br/>Star Wars (1977) #27<br/>Star Wars Clone Wars #1</td>
-              <td><strong>Username</strong><br/>snowbi-wan</td>
-              <td><strong>Shipping Address</strong><br/>Glenn Snow<br/>1234 Sierra Highway<br/>Apt 101<br/>Santa Clarita, CA 91351</td>
-              <td class="text-center"><strong>Shipped ?</strong><br/>
-                <input type="checkbox" id="shipped1" name="shipped1"/>
-                <label for="shipped1"><span></span></label>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Order Date</strong><br/>Sept 23, 2015</td>
-              <td><strong>Price</strong><br/>$2.49<br/>$3.29<br/>$2.99<br/>$2.99</td>
-              <td class="text-center"><strong>Qty</strong><br/>2<br/>1<br/>1<br/>1<br/>1</td>
-              <td><strong>Condition</strong><br/>NM<br/>NM<br/>NM<br/>VF+<br/>NM</td>
-              <td><strong>Comic Book Title #</strong><br/>Uncanny Avengers #1<br/>Wildcats (2006) #1<br/>Wildcats (2006) #2<br/>Savage Wolverine (2013) #1<br/>Wolverine (2013) #1</td>
-              <td><strong>Username</strong><br/>rogue_two</td>
-              <td><strong>Shipping Address</strong><br/>Paul Nguyen<br/>10023 Washington St<br/>Spokane, WA 99208</td>
-              <td class="text-center"><strong>Shipped ?</strong><br/>
-                <input type="checkbox" id="shipped2" name="shipped2"/>
-                <label for="shipped2"><span></span></label>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Order Date</strong><br/>Sept 23, 2015</td>
-              <td><strong>Price</strong><br/>$4.99<br/>$3.99</td>
-              <td class="text-center"><strong>Qty</strong><br/>3<br/>1</td>
-              <td><strong>Condition</strong><br/>VF+<br/>NM</td>
-              <td><strong>Comic Book Title #</strong><br/>Batman Incorporated #1<br/>Star Wars Clone Wars #1</td>
-              <td><strong>Username</strong><br/>comicfan01</td>
-              <td><strong>Shipping Address</strong><br/>Joshua Morgan<br/>12439 N Division Rd<br/>Unit 304<br/>Lewisville, TX 75077</td>
-              <td class="text-center"><strong>Shipped ?</strong><br/>
-                <input type="checkbox" id="shipped3" name="shipped3"/>
-                <label for="shipped3"><span></span></label>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Order Date</strong><br/>Sept 22, 2015</td>
-              <td><strong>Price</strong><br/>$4.99<br/>$3.99</td>
-              <td class="text-center"><strong>Qty</strong><br/>1<br/>1</td>
-              <td><strong>Condition</strong><br/>VF+<br/>NM</td>
-              <td><strong>Comic Book Title #</strong><br/>Star Wars (1977) #27<br/>Star Wars Clone Wars #1</td>
-              <td><strong>Username</strong><br/>snowbi-wan</td>
-              <td><strong>Shipping Address</strong><br/>Glenn Snow<br/>1234 Sierra Highway<br/>Apt 101<br/>Santa Clarita, CA 91351</td>
-              <td class="text-center"><strong>Shipped ?</strong><br/>
-                <input type="checkbox" id="shipped4" name="shipped4"/>
-                <label for="shipped4"><span></span></label>
-              </td>
-            </tr>
+          <?php 
+            //Get order and user data for each order that has not shipped
+            $query  = 'SELECT tbl_orders.*, tbl_users.* FROM tbl_orders ';
+            $query .= 'JOIN tbl_users ON tbl_orders.user_id=tbl_users.user_id ';
+            $query .= 'WHERE shipped=0';      
+            $order_result = mysqli_query($connection, $query);
+            confirm_query($order_result);
+            //For each order
+            while($order = mysqli_fetch_array($order_result)) {
+              //Get item information
+              $item_query = 'SELECT tbl_orders.*, tbl_order_line_items.inventory_id, tbl_order_line_items.item_quantity, tbl_inventory.price, tbl_inventory.grade, tbl_series.series, tbl_comics.number, tbl_comics.variation_text, tbl_titles.title FROM tbl_orders ';
+              $item_query .= 'JOIN tbl_order_line_items ON tbl_orders.order_id=tbl_order_line_items.order_id ';
+              $item_query .= 'JOIN tbl_inventory ON tbl_inventory.inventory_id=tbl_order_line_items.inventory_id ';
+              $item_query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
+              $item_query .= 'JOIN tbl_series ON tbl_series.series_id=tbl_comics.series_id ';
+              $item_query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
+              $item_query .= 'WHERE tbl_orders.order_id='.$order['order_id'];
+              $item_result = mysqli_query($connection, $item_query);
+              confirm_query($item_result);
+              //Create empty string variables
+              $price_string = '';
+              $quantity_string = '';
+              $grade_string = '';
+              $title_string = '';
+              $address_string = '';
+              //For each item ordered, create info as strings
+              while($item = mysqli_fetch_array($item_result)) {
+                $price_string .= '<br/>$'.$item['price'];
+                $quantity_string .= '<br/>'.$item['item_quantity'];
+                $grade_string .= '<br/>'.$item['grade'];
+                $title_string .= '<br/>'.$item['title'].' ('.$item['series'].') #'.$item['number'].' '.$item['variation_text'];
+              }
+              //Build users shipping information
+              $address_string .= '<br/>'.$order['first_name'].' '.$order['last_name'].'<br/>'.$order['address1'];
+              if($order['address2']!=''){
+                $address_string.= '<br/>'.$order['address2'];
+              }
+              $address_string .= '<br/>'.$order['city'].', '.$order['state'].' '.$order['zip'];
+              //Display order
+              echo '<tr>';
+              echo '<td class="narrowest"><strong>Order Date</strong><br/>'.date('M j Y', strtotime($order['order_date'])).'</td>';
+              echo '<td><strong>Price</strong>'.$price_string.'</td>';
+              echo '<td class="text-center"><strong>Qty</strong>'.$quantity_string.'</td>';
+              echo '<td><strong>Condition</strong>'.$grade_string.'</td>';
+              echo '<td class="medium"><strong>Comic Book Title, Series, Number, Variation</strong>'.$title_string.'</td>';
+              echo '<td><strong>Username</strong><br/>'.$order['username'].'</td>';
+              echo '<td><strong>Shipping Address</strong>'.$address_string.'</td>';
+              echo '<td class="text-center"><strong>Shipped ?</strong><br/>';
+              echo '<input type="checkbox" id="'.$order['order_id'].'" name="'.$order['order_id'].'"/>';
+              echo '<label for="'.$order['order_id'].'"><span></span></label></td>';
+              echo '</tr>';
+            }
+          ?>
           </table>
           <button class="pull-right" type="submit">Update Shipped</button>
         </form>

@@ -2,13 +2,14 @@
 require_once('login.php'); // Includes User Login Script
 require_once('register.php');// Includes User Registration Script
 require_once('includes/db_connection.php');// Includes Database Connection Script
-//Check if search data was submitted
+require_once('includes/functions.php'); // Includes search Script
 if (isset($_GET['search'])){
   // Store search term into a variable
-  $search_term = $_GET['search'];
-
-  //redirect to search results
-  redirect_to('search_results.php?search='.$search_term);
+  $search_term = htmlspecialchars($_GET['search'], ENT_QUOTES);
+  
+  // Instantiate a new instance of the search class
+  // Send the search term to our search class and store the result
+  $search_results = search($search_term);
 }
 ?>
 <!DOCTYPE html>
@@ -80,7 +81,7 @@ if (isset($_GET['search'])){
                   echo 'Hi, '.$_SESSION['username'].'!';
                   echo '&nbsp;&nbsp;&nbsp;<a href="logout.php">Logout</a>';
               }else{
-                echo '<a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a>';
+                echo '<a href="" data-toggle="modal" data-target="#loginModal">Log In</a> | <a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a>';
             }?>
           </div>
         </div>
@@ -113,60 +114,72 @@ if (isset($_GET['search'])){
       </nav>
     </header>
     <div class="row">
-      <h3 class="text-center">Please Log In to Complete the Checkout Process</h3>
-      <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-        <p class="text-center red"><?php if (isset($_SESSION['message'])) {
-          echo $_SESSION['message'];}?>
-        </p>
-        <form id="loginToCheckout" action="" method="POST">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required autofocus>
-            </div>         
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-          <button type="submit" name="submit_login_cart" class="pull-right">Log In</button>
-        </form>
-        <p class="text-center" id="signUp">Not Registered Yet? <a href="" data-toggle="modal" data-target="#signupModal">Sign Up Here</a></p>
-      </div>  
-    </div><!--End Row-->
-    <!-- signupModal -->
-    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">  
-          <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-            <img class="img-responsive center-block" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
-            <form id="signupForm" action="" method="POST">
-              <div class="form-group">
-                <label for="fName">Name</label>
-                <input type="text" class="form-control" id="fName" name="fName" required>
-                <input type="text" class="form-control" id="lName" name="lName" required>
-              </div>
-              <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-              </div> 
-              <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required>
-              </div>         
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-              </div>
-              <input type="checkbox" checked id="newsletter" name="newsletter" />
-              <label for="newsletter"><span></span>I would like to receive the monthly eNewsletter</label>
-              <input type="checkbox" checked id="agree" name="agree" required />
-              <label for="agree"><span></span>I Agree to the <a href="terms.php">Terms &amp; Conditions</a></label><br/>
-              <button type="submit" name="submit_register" class="pull-right">Submit</button>
-            </form>
-          </div><!-- /.modal-body -->
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+			<div class="table-responsive">
+        <table class="table">
+          <tr>
+            <th><h2>Image</h2></th>
+            <th><h2>Title</h2></th>
+            <th><h2>Number</h2></th>
+            <th><h2>Condition</h2></th>
+            <th><h2>Price</h2></th>
+            <th><h2>Quantity</h2></th>
+            <th><h2>&nbsp;&nbsp;&nbsp;&nbsp;</h2></th>
+          </tr>
+      <?php
+      	if($search_results==false){
+      		echo '<p>No results found for "'.$search_term.'"';
+      	}else{
+      		$count = mysqli_num_rows($search_results);
+      		echo '<p>'.$count.' results found for "'.$search_term.'"<br/><br/>';	
+	        while($row = mysqli_fetch_array($search_results)) {
+              echo '<tr>';
+              echo '<td><a href="" class="open-ComicDetails" data-toggle="modal" data-target="#comicModal" data-title="'.$row['title'].'" data-number="'.$row['number'].'" data-variation="'.$row['variation_text'].'" data-description="'.$row['description'].'" data-image="'.$row['picture_500'].'" data-creators="'.$row['creators'].'" data-price="'.$row['price'].'" data-condition="'.$row['grade'].'" data-quantity="'.$row['quantity'].'" data-inventory_id="'.$row['inventory_id'].'">';
+              echo '<img class="img-responsive thumb" src="images/comics/'.$row['picture_500'].'" alt="Comic Book Cover"></a></td>';
+              echo '<td class="narrow">'.$row['title'].' '.$row['variation_text'].'</td>';
+              echo '<td>'.' #'.$row['number'].'</td>';
+              echo '<td>'.$row['grade'].'</td>';
+              echo '<td>'.$row['price'].'</td>';
+              echo '<td><form action="add_cart.php" method="POST">Qty:&nbsp;<input type="number" name="quantity" min="1" max="'.$row['quantity'].'" required><br/>';
+              echo 'Available ('.$row['quantity'].')</td>';
+              echo '<td><input class="hidden" type="number" name="id" value="'.$row['inventory_id'].'"><button type="submit" name="submit_add">Add To Cart</button></form></td>';
+              echo '</tr>';
+            }
+	    }
+      ?>
+		</table>
+			<!-- comicModal -->
+      <div class="modal modal-wide fade" id="comicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h1 class="modal-title" id="title"></h1>
+              </div><!-- /.modal-header -->
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-5 col-sm-6">
+                    <div class="pull-left"><img class="img-responsive" id="modalImage" src=""></div>
+                  </div>
+                  <div class="col-md-7 col-sm-6">
+                    <h3>Creators</h3>
+                    <p id="creators"></p>
+                    <h3>Description</h3>
+                    <p id="description"></p>
+                    <h3>Condition</h3>
+                    <p id="condition"></p>
+                    <h3>Price $<span id="price"></span></h3>
+                    <form class="pull-right" action="add_cart.php" method="POST">
+                      Qty:&nbsp;<input id="quantity" type="number" name="quantity" min="1" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" name="submit_add">Add To Cart</button><br/>
+                      Available (<span id="quantityAvailable"></span>)
+                      <input class="hidden" type="number" name="id" id="inventory_id">
+                    </form>
+                  </div>
+                </div>
+              </div><!-- /.modal-body -->
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </div><!-- row -->
     <footer class="row">
       <p class="col-md-4">This Website &copy; 2015 SpiralComics.<br/>All characters are copyrighted by their respective publishers.</p>
       <p class="col-md-2"><span class="bold">Site Links</span><br/>

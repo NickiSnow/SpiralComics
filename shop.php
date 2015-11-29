@@ -2,6 +2,14 @@
 require_once('login.php'); // Includes User Login Script
 require_once('register.php');// Includes User Registration Script
 require_once('includes/db_connection.php');// Includes Database Connection Script
+//Check if search data was submitted
+if (isset($_GET['search'])){
+  // Store search term into a variable
+  $search_term = $_GET['search'];
+
+  //redirect to search results
+  redirect_to('search_results.php?search='.$search_term);
+}
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
@@ -94,9 +102,9 @@ require_once('includes/db_connection.php');// Includes Database Connection Scrip
               <li><a href="about.php">About Us</a>
               </li>
             </ul>
-            <form class="navbar-form navbar-right search" role="search">
+            <form class="navbar-form navbar-right search" role="search" action="" method="GET">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search. . ." name="search">
+                <input type="search" class="form-control" placeholder="Search. . ." name="search">
                 <div class="input-group-btn">
                   <button class="btn btn-default searchBtn" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                 </div>

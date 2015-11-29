@@ -142,6 +142,7 @@
 	function find_inventory($id) {
 		global $connection;
 		
+		// Sanitize the id to prevent injection attacks
 		$safe_id = mysqli_real_escape_string($connection, $id);
 		
 		$query  = 'SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.number, tbl_comics.variation_text FROM tbl_inventory ';
@@ -156,5 +157,34 @@
 		} else {
 			return null;
 		}
+	}
+
+	function search($search_term) {
+		global $connection;
+
+		// Sanitize the search term to prevent injection attacks
+    	$sanitized = mysqli_real_escape_string($connection, $search_term);
+    
+	    // Run the query
+	    $query  = "SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.number, tbl_comics.description, tbl_comics.creators, tbl_comics.variation_text, tbl_publishers.publisher FROM tbl_inventory ";
+        $query .= "JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ";
+        $query .= "JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ";
+        $query .= "JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ";
+        $query .= "JOIN tbl_publishers ON tbl_series.publisher_id=tbl_publishers.publisher_id ";
+	    $query .= "WHERE tbl_titles.title LIKE '%{$sanitized}%' ";
+	    $query .= "OR tbl_comics.description LIKE '%{$sanitized}%' ";
+	    $query .= "OR tbl_comics.creators LIKE '%{$sanitized}%' ";
+	    $query .= "OR tbl_comics.variation_text LIKE '%{$sanitized}%' ";
+	    $query .= "OR tbl_publishers.publisher LIKE '%{$sanitized}%'";
+	    
+	    $search_results = mysqli_query($connection, $query);
+	    confirm_query($search_results);
+    
+    	// Check results
+	    if (!mysqli_num_rows($search_results)){
+	      return false;
+	    }
+
+    	return $search_results;
 	}
 ?>

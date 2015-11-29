@@ -19,7 +19,7 @@
         $found_item['quantity']=$quantity;
         $_SESSION['cart']['cart'.$id]=array(); // Declaring session array
         array_push($_SESSION['cart']['cart'.$id],  $found_item);
-        redirect_to('shop.php');
+        header("Location: {$_SERVER['HTTP_REFERER']}");
       } else {
         // Failure
         $_SESSION["message"] = "Item not found.";

@@ -146,7 +146,68 @@ if (isset($_GET['search'])){
             }
 	    }
       ?>
-		</table>
+		    </table>
+      </div>
+      <!-- loginModal -->
+      <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">  
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+              <img class="img-responsive center-block" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
+              <p class="text-center red"><?php if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];}?>
+              </p>
+              <form id="loginForm" action="" method="POST">
+                  <div class="form-group">
+                      <label for="username">Username</label>
+                      <input type="text" class="form-control" id="username" name="username" required>
+                  </div>         
+                  <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="password" name="password" required>
+                  </div>
+                <button type="submit" name="submit_login" class="pull-right">Log In</button>
+              </form>
+            </div><!-- /.modal-body -->
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+      <!-- signupModal -->
+      <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">  
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+              <img class="img-responsive center-block" src="images/Spiral-Comics-logo.gif" alt="Spiral Comics Logo" />
+              <form id="signupForm" action="" method="POST">
+                <div class="form-group">
+                  <label for="fName">Name</label>
+                  <input type="text" class="form-control" id="fName" name="fName" required>
+                  <input type="text" class="form-control" id="lName" name="lName" required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input type="email" class="form-control" id="email" name="email" required>
+                </div> 
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" id="username" name="username" required>
+                </div>         
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <input type="checkbox" checked id="newsletter" name="newsletter" />
+                <label for="newsletter"><span></span>I would like to receive the monthly eNewsletter</label>
+                <input type="checkbox" checked id="agree" name="agree" required />
+                <label for="agree"><span></span>I Agree to the <a href="terms.php">Terms &amp; Conditions</a></label><br/>
+                <button type="submit" name="submit_register" class="pull-right">Submit</button>
+              </form>
+            </div><!-- /.modal-body -->
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
 			<!-- comicModal -->
       <div class="modal modal-wide fade" id="comicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -195,7 +256,7 @@ if (isset($_GET['search'])){
       <p class="col-md-2"><span class="bold">The Fine Print</span><br/>
         <a href="terms.php">Terms &amp; Conditions</a><br/>
         <a href="terms.php#privacy">Privacy Policy</a></p>
-      <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>info@spiralcomics.com</p>      
+      <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>comics4u@spiralcomics.com</p>      
     </footer>
   </div> <!-- End Container -->
   <!-- Javascript

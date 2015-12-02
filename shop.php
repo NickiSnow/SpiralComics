@@ -375,7 +375,7 @@ if (isset($_GET['search'])){
       <p class="col-md-2"><span class="bold">The Fine Print</span><br/>
         <a href="terms.php">Terms &amp; Conditions</a><br/>
         <a href="terms.php#privacy">Privacy Policy</a></p>
-      <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>info@spiralcomics.com</p>      
+      <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>comics4u@spiralcomics.com</p>      
     </footer>
   </div> <!-- End Container -->
   <!-- Javascript

@@ -123,18 +123,22 @@ if (isset($_GET['search'])){
           <li>excludes all liability for damages arising out of or in connection with your use of this website. This includes, without limitation, direct loss, loss of business or profits (whether or not the loss of such profits was foreseeable, arose in the normal course of things or you have advised this Company of the possibility of such potential loss), damage caused to your computer, computer software, systems and programs and the data thereon or any other direct or indirect, consequential and incidental damages. </li>
         </ul>
         <p>This Company does not however exclude liability for death or personal injury caused by its negligence. The above exclusions and limitations apply only to the extent permitted by law. None of your statutory rights as a consumer are affected.</p>
-        <h4><a name="privacy"></a>Privacy</h4>
-        <p>We respect your privacy. Information about you will not be sold or shared with outside parties.</p>
+        <h4><a name="privacy"></a>Privacy Policy</h4>
+        <p>The term “Personal Information”, as used in this Policy, refers to any information that can be used to identify a specific person, or any anonymous information (e.g., IP Address) that is linked to a specific person.</p>
+        <p>We respect your privacy. Personal Information about you will not be sold or shared with marketers or third parties.</p>
+        <p>We may disclose your Personal Information to law enforcement, government officials, or other third parties if: (i) we are compelled to do so by subpoena, court order or other legal process, (ii) we must do so to comply with laws, statutes, rules or regulations, including credit card rules, (iii) we believe in good faith that the disclosure is necessary to prevent physical harm or financial loss, to report suspected illegal activity, or to investigate violations of our Terms of Service.</p>
+        <p>We will only disclose your Personal Information in response to such a request if we believe in good faith that doing so is necessary to comply with applicable law or a legal obligation to which we are bound. If we receive such a request, we will use reasonable efforts to give you prompt notice, so that you may contest it if you choose. We won’t provide you such notice if we determine in good faith that either (a) we are not permitted to provide it under applicable law, or (b) that doing so would result in an imminent risk of death, serious physical injury or significant property loss or damage to Spiral Comics or a third party.</p>
         <h4>Security</h4>
         <p>All orders placed at SpiralComics.com are processed over a secure, encrypted connection using 128 bit SSL.</p>
-        <p>Once your order information is received, information including your name, address, and credit card information is stored encrypted in our database. We do not store credit card information at this time.</p>
-        <p>SpiralComics absolutely does not share your name, address, or credit card information with any third party without your express permission. It is our commitment to keep your personal information private and confidential at all times.</p>
+        <p>Once your order information is received, information including your name and address are stored in our database. We do not store credit card information at this time.</p>
+        <p>SpiralComics absolutely does not share your name, address, or credit card information with any third party without your express permission. It is our commitment to keep your Personal Information private and confidential at all times.</p>
         <h4>Shipping</h4>
         <p>Shipping for all orders is a flat rate of $5.00 plus $0.50 for each additional item. You may also have your books shipped twice a month or weekly in the United States. There is an additional shipping charge per month if you would like twice a month shipments. These options are only available for orders containing books.</p>
         <h4>Shipping to PO Boxes, APO, FPO, Hawaii, and Alaska</h4>
         <p>Orders sent to PO Boxes, FPO, APO, Alaska, Hawaii, and other U.S. territories are sent by USPS and are subject to actual shipping costs. The flat rate shipping cost will be assessed to the order it is placed. When the order is packaged, the actual cost adjustments will be made to the order at that time. The only option for ground shipping to these locations is the US Postal Service and the rates are much higher than those we negotiate with our shipping carrier. Packages sent by the US Postal Service by this method are not insured, but may be insured for an additional cost. If customers do not choose insurance, we are unable to replace lost packages. Customers in these locations may also request Priority shipping either in flat rate boxes or by Priority Mail at actual cost. Please inquire for costs.</p>
         <h4>Payments</h4>
-        <p>All payments are processed through PayPal. PayPal allows you to make payments using a variety of methods including: PayPal Balance, PayPal Credit, bank account, all major credit cards, PayPal Cards, and debit cards.</p>
+        <p>All payments are processed through the Stripe Payment API. Stripe allows you to make payments using all major credit cards and debit cards. Spiral Comics uses a PCI compliant service provider for transmission of Payment Data defined as a cardholder’s account number, expiration date, and CVV2. Spiral Comics does not store any payment data at any time.</p>
+        <p>Stripe is responsible for protecting the security of Payment Data transfered to their possession during the submission of data from Spiral Comics. Stripe will maintain commercially reasonable administrative, technical, and physical procedures to protect all the personal information regarding Spiral Comics' customers that is stored in their servers from unauthorized access and accidental loss or modification. However, they cannot guarantee that unauthorized third parties will never be able to defeat those measures or use such personal information for improper purposes. By submitting a payment through the Spiral Comics website. You acknowledge that you provide this personal information at your own risk.</p>
         <h4>Links to this website</h4> 
         <p>You may not create a link to any page of this website without our prior written consent. If you do create a link to a page of this website you do so at your own risk and the exclusions and limitations set out above will apply to your use of this website by linking to it.</p>
         <h4>Links from this website</h4>
@@ -215,7 +219,7 @@ if (isset($_GET['search'])){
       <p class="col-md-2"><span class="bold">The Fine Print</span><br/>
         <a href="terms.php">Terms &amp; Conditions</a><br/>
         <a href="terms.php#privacy">Privacy Policy</a></p>
-      <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>info@spiralcomics.com</p>      
+      <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>comics4u@spiralcomics.com</p>      
     </footer>
   </div> <!-- End Container -->
   <!-- Javascript

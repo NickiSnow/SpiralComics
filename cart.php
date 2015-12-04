@@ -116,6 +116,7 @@ if (isset($_GET['search'])){
         <a href="shop.php"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Continue Shopping</a>
         <h1>Your Shopping Cart</h1>
         <div class="table-responsive">
+        <?php if (isset($_SESSION['cart'])){ ?>
         <table id="tCart" cellpadding="0" cellspacing="0">
             <tr>
                 <th>Qty</th>
@@ -128,21 +129,21 @@ if (isset($_GET['search'])){
             <?php
               $total = 0;
               $qty_total = 0;
-              foreach ($_SESSION['cart'] as $key => $cart) {
-                foreach ($cart as $key => $items){
-                  echo '<tr>';
-                  echo '<td>'.$items['quantity'].'</td>';
-                    $qty_total += $items['quantity'];
-                  echo '<td>'.$items['title'].' #'.$items['number'].' '.$items['variation_text'].' -- '.$items['grade'].'</td>';
-                  echo '<td class="text-right">&#36;'.number_format($items['price'], 2).'</td>';
-                  echo '<td class="text-right">&#36;';
-                    $subtotal = $items['price']*$items['quantity'];
-                  echo  number_format($subtotal, 2).'</td>'; 
-                    $total += $subtotal;
-                  echo '<td class="text-center"><a href="remove_item.php?id='.$items['inventory_id'].'"><span class="glyphicon glyphicon-remove"></span></a></td>';
-                  echo '</tr>';
-                }
-              }  
+                foreach ($_SESSION['cart'] as $key => $cart) {
+                  foreach ($cart as $key => $items){
+                    echo '<tr>';
+                    echo '<td>'.$items['quantity'].'</td>';
+                      $qty_total += $items['quantity'];
+                    echo '<td>'.$items['title'].' #'.$items['number'].' '.$items['variation_text'].' -- '.$items['grade'].'</td>';
+                    echo '<td class="text-right">&#36;'.number_format($items['price'], 2).'</td>';
+                    echo '<td class="text-right">&#36;';
+                      $subtotal = $items['price']*$items['quantity'];
+                    echo  number_format($subtotal, 2).'</td>'; 
+                      $total += $subtotal;
+                    echo '<td class="text-center"><a href="remove_item.php?id='.$items['inventory_id'].'"><span class="glyphicon glyphicon-remove"></span></a></td>';
+                    echo '</tr>';
+                  }
+                } 
             ?>
             <tr>
                 <td></td>
@@ -162,9 +163,14 @@ if (isset($_GET['search'])){
         </table>
         </div>
         <div class="checkoutDiv">
-            <button class="secondary">Empty Cart</button>
+            <a class="secondary" href="empty_cart.php">Empty Cart</a>
             <a class="pull-right button" href="address_form.php">Checkout</a>
         </div>
+                <?php
+        }else{
+          echo'<br/><h4 class="text-center" id="checkout">You currently have no items in your cart.</h4>';
+        } 
+        ?>
     </div>
     <!-- loginModal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

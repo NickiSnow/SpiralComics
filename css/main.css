@@ -52,7 +52,7 @@ body {
 .modal-body {
 	overflow-y: auto;
 }
-p#titles {
+p#titles, h4#checkout {
 	min-height: 400px;
 }
 footer {
@@ -218,7 +218,7 @@ button:hover, a.button:hover {
 	border:3px solid #093968;
 	text-decoration: none;
 }
-button.secondary {
+.secondary {
 	color: #093968;
 	background-color: #FFFACD;
 	border:3px solid #093968;

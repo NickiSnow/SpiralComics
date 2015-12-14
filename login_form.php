@@ -61,6 +61,7 @@ if (isset($_GET['search'])){
 	</style>
 <![endif]--> 
 </head>
+<body>
 <!-- Begin Content Container -->
   <div class="container">
     <header>
@@ -189,7 +190,6 @@ if (isset($_GET['search'])){
     ================================================== --> 
   <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.zrssfeed.min.js" type="text/javascript"></script>
   <script src="js/main.js" type="text/javascript"></script>
   <script type="text/javascript">
     <?php if(isset($_POST['submit_login']) && $_SESSION['message']=='Username/password not found.') { ?> /* Checking that the login form has been submitted */

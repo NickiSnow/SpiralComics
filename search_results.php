@@ -62,6 +62,7 @@ if (isset($_GET['search'])){
 	</style>
 <![endif]--> 
 </head>
+<body>
 <!-- Begin Content Container -->
   <div class="container">
     <header>
@@ -137,7 +138,7 @@ if (isset($_GET['search'])){
               echo '<img class="img-responsive thumb" src="images/comics/'.$row['picture_500'].'" alt="Comic Book Cover"></a></td>';
               echo '<td class="narrow">'.$row['title'].' '.$row['variation_text'].'</td>';
               echo '<td>'.' #'.$row['number'].'</td>';
-              echo '<td>'.$row['grade'].'</td>';
+              echo '<td><span class="red-tooltip" data-toggle="tooltip" data-placement="right" data-html="true" title="NEW = Unread (at least 9.2)<br/>GM = Gem Mint (10.0)<br/>M = Mint (9.9)<br/>NMM = Near Mint/Mint (9.8)<br/>NM+ = Near Mint + (9.6)<br/>NM = Near Mint (9.4)<br/>NM- = Near Mint - (9.2)<br/>VFNM = Very Fine/Near Mint (9.0)<br/>VF+ = Very Fine + (8.5)<br/>VF = Very Fine (8.0)<br/>VF- = Very Fine - (7.5)<br/>FVF = Fine/Very Fine (7.0)<br/>F+ = Fine + (6.5)<br/>F = Fine (6.0)<br/>F- = Fine - (5.5)<br/>VGF = Very Good/Fine (5.0)<br/>VG+ = Very Good + (4.5)<br/>VG = Very Good (4.0)<br/>VG- = Very Good - (3.5)<br/>GVG = Good/Very Good (3.0)<br/>G+ = Good + (2.5)<br/>G = Good (2.0)<br/>G- = Good - (1.8)<br/>FRG = Fair/Good (1.5)<br/>FAIR = Fair (1.0)<br/>POOR = Poor (0.5)<br/>">'.$row['grade'].'</span></td>';
               echo '<td>'.$row['price'].'</td>';
               echo '<td><form action="add_cart.php" method="POST">Qty:&nbsp;<input type="number" name="quantity" min="1" max="'.$row['quantity'].'" required><br/>';
               echo 'Available ('.$row['quantity'].')</td>';
@@ -263,7 +264,6 @@ if (isset($_GET['search'])){
     ================================================== --> 
   <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.zrssfeed.min.js" type="text/javascript"></script>
   <script src="js/main.js" type="text/javascript"></script>
   <script type="text/javascript">
     <?php if(isset($_POST['submit_login']) && $_SESSION['message']=='Username/password not found.') { ?> /* Checking that the login form has been submitted */

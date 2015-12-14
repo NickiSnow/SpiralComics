@@ -1,7 +1,7 @@
-<?php require_once("includes/session.php"); ?>
-<?php require_once("includes/db_connection.php"); ?>
-<?php require_once("includes/functions.php"); ?>
-<?php
+<?php require_once("includes/session.php");
+  require_once("includes/db_connection.php");
+  require_once("includes/functions.php");
+
 $username = "";
 
 //Handles Log In from modal window
@@ -97,5 +97,4 @@ if (isset($_POST['submit_login_admin'])) {
     }
   }
 } // end: if (isset($_POST['submit']))
-
 ?>

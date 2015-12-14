@@ -17,7 +17,7 @@ if (isset($_GET['search'])){
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-      	<!-- Basic Page Needs
+    <!-- Basic Page Needs
   	================================================== -->
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">    
@@ -61,6 +61,7 @@ if (isset($_GET['search'])){
 	</style>
 <![endif]--> 
 </head>
+<body>
 <!-- Begin Content Container -->
   <div class="container">
     <header>
@@ -115,10 +116,8 @@ if (isset($_GET['search'])){
     <div class="row">
       <h1>Welcome to Spiral Comics</h1>
       <div class="col-md-8 col-md-offset-2 text-center">
-        <p>We specialize in Star Wars comics as well as other recent, hot comics. New comics (from the past six months) are added monthly and back issues are added as they are acquired and processed.
-        </p>
-        <p>Can't find it at your local comic shop? Try us! We have premium graded comics as well as $1 DEALS. Browse around and let us know if there’s something we can track down for you.
-        </p>
+        <p>We specialize in Star Wars comics as well as other recent, hot comics. New comics (from the past six months) are added monthly and back issues are added as they are acquired and processed.</p>
+        <p>Can't find it at your local comic shop? Try us! We have premium graded comics as well as $1 DEALS. Browse around and let us know if there’s something we can track down for you.</p>
       </div>
     </div><!-- End Row 1 -->
     <div class="row">

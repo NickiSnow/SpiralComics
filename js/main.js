@@ -46,5 +46,8 @@
     });
   });
 
+  /* ----------- Create Tooltips for conditions -------------- */
+  $('[data-toggle="tooltip"]').tooltip();
+
 })(jQuery); // end jQuery document ready function
 

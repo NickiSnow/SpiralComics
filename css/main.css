@@ -139,6 +139,17 @@ a#publisherDrop:hover, a#publisherDrop:active {
 p#signUp {
 	margin-bottom: 50px;
 }
+/* ---------tooltip styles--------- */
+.red-tooltip + .tooltip > .tooltip-inner {
+	border: 1px solid #B32513;
+    border-radius: 3px;
+    background-color: #fff;
+    color: #093968;
+    text-align: left;
+}
+.red-tooltip + .tooltip > .tooltip-arrow {
+	border-right-color: #B32513;
+}
 
 /* ---------rss styles--------- */
 .rssBody ul {

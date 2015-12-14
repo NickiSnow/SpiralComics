@@ -1,6 +1,6 @@
 <?php
 require_once('login.php'); // Includes User Login Script
-confirm_logged_in();
+confirm_logged_in(); //User must be logged in to Checkout
 require_once('add_address.php'); // Includes Script to add address to database
 require_once('includes/db_connection.php');// Includes Database Connection Script
 //Check if search data was submitted

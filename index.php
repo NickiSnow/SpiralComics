@@ -342,7 +342,7 @@ if (isset($_GET['search'])){
                   <form class="pull-right" action="add_cart.php" method="POST">
                     Qty:&nbsp;<input id="quantity" type="number" name="quantity" min="1" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" name="submit_add">Add To Cart</button><br/>
                     Available (<span id="quantityAvailable"></span>)
-                    <input class="hidden" type="number" name="id" id="inventory_id">
+                    <input class="hidden" type="text" name="id" id="inventory_id">
                   </form>
                 </div>
               </div>
@@ -365,7 +365,7 @@ if (isset($_GET['search'])){
       <p class="col-md-2"><span class="bold">The Fine Print</span><br/>
         <a href="terms.php">Terms &amp; Conditions</a><br/>
         <a href="terms.php#privacy">Privacy Policy</a></p>
-      <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>comics4u@spiralcomics.com</p>      
+      <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 18930<br/>Spokane, WA 99228-0930<br/><br/>comics4u@spiralcomics.com</p>      
     </footer>
   </div> <!-- End Container -->
   <!-- Javascript

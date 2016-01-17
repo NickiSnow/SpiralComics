@@ -165,8 +165,9 @@ if (isset($_GET['search'])){
             $total = mysqli_fetch_array($count_result);
             $total_count = $total['COUNT(*)'];
 
-            $query  = 'SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.number, tbl_comics.description, tbl_comics.creators, tbl_comics.variation_text, tbl_publishers.publisher FROM tbl_inventory ';
+            $query  = 'SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.number, tbl_comics.description, tbl_comics.creators, tbl_comics.variation_text, tbl_series.series, tbl_publishers.publisher, tbl_grades.grade_text, tbl_grades.grade_number FROM tbl_inventory ';
             $query .= 'JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ';
+            $query .= 'JOIN tbl_grades ON tbl_inventory.grade=tbl_grades.grade ';
             $query .= 'JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ';
             $query .= 'JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ';
             $query .= 'JOIN tbl_publishers ON tbl_series.publisher_id=tbl_publishers.publisher_id ';
@@ -204,16 +205,20 @@ if (isset($_GET['search'])){
           ?>
           <?php
             while($row = mysqli_fetch_array($result)) {
+              $tip=$row['grade_text'];
+              if ($row['grade_number']!=0.0) {
+                $tip .=' ('.$row['grade_number'].')';
+              }              
               echo '<tr>';
               echo '<td><a href="" class="open-ComicDetails" data-toggle="modal" data-target="#comicModal" data-title="'.$row['title'].'" data-number="'.$row['number'].'" data-variation="'.$row['variation_text'].'" data-description="'.$row['description'].'" data-image="'.$row['picture_500'].'" data-creators="'.$row['creators'].'" data-price="'.$row['price'].'" data-condition="'.$row['grade'].'" data-quantity="'.$row['quantity'].'" data-inventory_id="'.$row['inventory_id'].'">';
               echo '<img class="img-responsive thumb" src="images/comics/'.$row['picture_500'].'" alt="Comic Book Cover"></a></td>';
-              echo '<td class="narrow">'.$row['title'].' '.$row['variation_text'].'</td>';
-              echo '<td>'.' #'.$row['number'].'</td>';
-              echo '<td><span class="red-tooltip" data-toggle="tooltip" data-placement="right" data-html="true" title="NEW = Unread (at least 9.2)<br/>GM = Gem Mint (10.0)<br/>M = Mint (9.9)<br/>NMM = Near Mint/Mint (9.8)<br/>NM+ = Near Mint + (9.6)<br/>NM = Near Mint (9.4)<br/>NM- = Near Mint - (9.2)<br/>VFNM = Very Fine/Near Mint (9.0)<br/>VF+ = Very Fine + (8.5)<br/>VF = Very Fine (8.0)<br/>VF- = Very Fine - (7.5)<br/>FVF = Fine/Very Fine (7.0)<br/>F+ = Fine + (6.5)<br/>F = Fine (6.0)<br/>F- = Fine - (5.5)<br/>VGF = Very Good/Fine (5.0)<br/>VG+ = Very Good + (4.5)<br/>VG = Very Good (4.0)<br/>VG- = Very Good - (3.5)<br/>GVG = Good/Very Good (3.0)<br/>G+ = Good + (2.5)<br/>G = Good (2.0)<br/>G- = Good - (1.8)<br/>FRG = Fair/Good (1.5)<br/>FAIR = Fair (1.0)<br/>POOR = Poor (0.5)<br/>">'.$row['grade'].'</span></td>';
+              echo '<td class="narrow">'.$row['title'].'<br/>['.$row['series'].']'.'</td>';
+              echo '<td>'.' #'.$row['number'].'<br/>'.$row['variation_text'].'</td>';
+              echo '<td><span class="red-tooltip" data-toggle="tooltip" data-placement="top" data-html="true" title="'.$tip.'">'.$row['grade'].'</span></td>';
               echo '<td>'.$row['price'].'</td>';
               echo '<td><form action="add_cart.php" method="POST">Qty:&nbsp;<input type="number" name="quantity" min="1" max="'.$row['quantity'].'" required><br/>';
               echo 'Available ('.$row['quantity'].')</td>';
-              echo '<td><input class="hidden" type="number" name="id" value="'.$row['inventory_id'].'"><button type="submit" name="submit_add">Add To Cart</button></form></td>';
+              echo '<td><input class="hidden" type="text" name="id" value="'.$row['inventory_id'].'"><button type="submit" name="submit_add">Add To Cart</button></form></td>';
               echo '</tr>';
             }
           ?>
@@ -300,7 +305,7 @@ if (isset($_GET['search'])){
                     <form class="pull-right" action="add_cart.php" method="POST">
                       Qty:&nbsp;<input id="quantity" type="number" name="quantity" min="1" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" name="submit_add">Add To Cart</button><br/>
                       Available (<span id="quantityAvailable"></span>)
-                      <input class="hidden" type="number" name="id" id="inventory_id">
+                      <input class="hidden" type="text" name="id" id="inventory_id">
                     </form>
                   </div>
                 </div>
@@ -375,7 +380,7 @@ if (isset($_GET['search'])){
       <p class="col-md-2"><span class="bold">The Fine Print</span><br/>
         <a href="terms.php">Terms &amp; Conditions</a><br/>
         <a href="terms.php#privacy">Privacy Policy</a></p>
-      <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 1245<br/>Spokane, WA 99205<br/><br/>comics4u@spiralcomics.com</p>      
+      <p class="col-md-2"><span class="bold">Contact Us</span><br/>P.O. Box 18930<br/>Spokane, WA 99228-0930<br/><br/>comics4u@spiralcomics.com</p>      
     </footer>
   </div> <!-- End Container -->
   <!-- Javascript

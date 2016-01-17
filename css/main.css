@@ -148,7 +148,7 @@ p#signUp {
     text-align: left;
 }
 .red-tooltip + .tooltip > .tooltip-arrow {
-	border-right-color: #B32513;
+	border-top-color: #B32513;
 }
 
 /* ---------rss styles--------- */

@@ -166,8 +166,9 @@
     	$sanitized = mysqli_real_escape_string($connection, $search_term);
     
 	    // Run the query
-	    $query  = "SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.number, tbl_comics.description, tbl_comics.creators, tbl_comics.variation_text, tbl_publishers.publisher FROM tbl_inventory ";
+	    $query  = "SELECT tbl_inventory.*, tbl_titles.title, tbl_comics.number, tbl_comics.description, tbl_comics.creators, tbl_comics.variation_text, tbl_series.series, tbl_publishers.publisher, tbl_grades.grade_text, tbl_grades.grade_number FROM tbl_inventory ";
         $query .= "JOIN tbl_comics ON tbl_inventory.comic_id=tbl_comics.comic_id ";
+        $query .= 'JOIN tbl_grades ON tbl_inventory.grade=tbl_grades.grade ';
         $query .= "JOIN tbl_series ON tbl_comics.series_id=tbl_series.series_id ";
         $query .= "JOIN tbl_titles ON tbl_series.title_id_text=tbl_titles.title_id_text ";
         $query .= "JOIN tbl_publishers ON tbl_series.publisher_id=tbl_publishers.publisher_id ";

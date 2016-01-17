@@ -5,13 +5,11 @@
   //check for Add To Cart submit
   if (isset($_POST['submit_add'])) {
     // Process the form
-    
     if (empty($errors)) {
       // Attempt to find inventory item
 
       $id = $_POST["id"];
       $quantity = $_POST["quantity"];
-      
       $found_item = find_inventory($id);
 
       if ($found_item) {

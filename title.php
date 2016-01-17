@@ -153,7 +153,7 @@ if (isset($_GET['search'])){
               echo '<td>'.$row['price'].'</td>';
               echo '<td><form action="add_cart.php" method="POST">Qty:&nbsp;<input type="number" name="quantity" min="1" max="'.$row['quantity'].'" required><br/>';
               echo 'Available ('.$row['quantity'].')</td>';
-              echo '<td><input class="hidden" type="number" name="id" value="'.$row['inventory_id'].'"><button type="submit" name="submit_add">Add To Cart</button></form></td>';
+              echo '<td><input class="hidden" type="text" name="id" value="'.$row['inventory_id'].'"><button type="submit" name="submit_add">Add To Cart</button></form></td>';
               echo '</tr>';
             }
           ?>
